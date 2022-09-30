@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "519688874046",
+    "project_id": "eventscape-18a37",
+    "storage_bucket": "eventscape-18a37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519688874046:android:7ade81e736c926f76e496f",
+        "android_client_info": {
+          "package_name": "com.group5.eventscape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519688874046-e500cpm9ptci4v7fmo5bps6vnniifsob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQeVNc6EXZZCKP5qJqA6f-CrjxdtaND7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519688874046-e500cpm9ptci4v7fmo5bps6vnniifsob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

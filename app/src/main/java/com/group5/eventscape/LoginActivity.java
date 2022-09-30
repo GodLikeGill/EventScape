@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         pass = findViewById(R.id.etPassword);
 
         forgotPass.setOnClickListener(v -> {
-            //startActivity(new Intent(this, ForgotPasswordActivity.class));
+            startActivity(new Intent(this, ForgotPasswordActivity.class));
         });
 
         login.setOnClickListener(v -> {

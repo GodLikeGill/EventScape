@@ -10,8 +10,7 @@
 
     <string name="create_an_account">CREATE AN ACCOUNT</string>
 
-    <string name="hint_last_name">Last name</string>
-    <string name="hint_first_name">First name</string>
+    <string name="hint_full_name">Full Name</string>
     <string name="et_hint_confirm_password">Confirm Password</string>
 
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Condition </u></string>

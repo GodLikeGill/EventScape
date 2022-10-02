@@ -33,13 +33,17 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, ForgotPasswordActivity.class));
         });
 
+        register.setOnClickListener(v -> {
+            startActivity(new Intent(this, SignUpActivity.class));
+        });
+
         login.setOnClickListener(v -> {
             String emailText = email.getText().toString();
             String passText = pass.getText().toString();
             if (!emailText.isEmpty() || !passText.isEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passText).addOnSuccessListener(authResult -> {
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    //finish();
+//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                    finish();
                 }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
             } else {
                 Toast.makeText(this, "Please enter valid information", Toast.LENGTH_SHORT).show();

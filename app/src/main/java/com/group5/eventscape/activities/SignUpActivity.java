@@ -1,4 +1,4 @@
-package com.group5.eventscape;
+package com.group5.eventscape.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,16 +1,16 @@
-package com.group5.eventscape;
+package com.group5.eventscape.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.group5.eventscape.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
             String passText = pass.getText().toString();
             if (!emailText.isEmpty() || !passText.isEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passText).addOnSuccessListener(authResult -> {
-//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
             } else {
                 Toast.makeText(this, "Please enter valid information", Toast.LENGTH_SHORT).show();

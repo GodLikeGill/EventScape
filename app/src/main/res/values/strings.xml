@@ -40,4 +40,12 @@
     <!-- Forgot Password Activity-->
     <string name="btn_lbl_reset_password">RESET PASSWORD</string>
     <string name="or">Or</string>
+
+    <!-- Main Activity -->
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="favorites">Favorites</string>
+    <string name="notification">Notification</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#696969</color>
+    <color name="prim">#0F9D58</color>
     <color name="prim_text">#222934</color>
     <color name="sec_text">#989898</color>
 </resources>

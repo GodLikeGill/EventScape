@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddEventActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvAddEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Add Event"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <View
+                android:id="@+id/view_add_listing_top"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddEvent"/>
+
+            <FrameLayout
+                android:id="@+id/flEventImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_add_listing_top">
+
+                <ImageView
+                    android:id="@+id/ivEventImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E1E1E1"
+                    android:contentDescription="image"
+                    android:scaleType="fitXY" />
+
+                <ImageButton
+                    android:id="@+id/iBtnAddUpdateEventImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="16dp" />
+            </FrameLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEventTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Event Title"
+                android:textColorHint="#989898"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flEventImage">
+
+
+                <EditText
+                    android:id="@+id/etEventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="#222934"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEventDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Event Details"
+                android:textColorHint="#989898"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEventTitle">
+
+
+                <EditText
+                    android:id="@+id/etEventDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="117dp"
+                    android:inputType="textMultiLine"
+                    android:padding="16dp"
+                    android:textColor="#222934"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEventAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Address"
+                android:textColorHint="#989898"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEventDescription">
+
+
+                <EditText
+                    android:id="@+id/etEventAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="#222934"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvSelectDate"
+                android:layout_width="123dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="Select Date"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEventAddress" />
+
+            <TextView
+                android:id="@+id/datePicker"
+                style="?android:spinnerStyle"
+                android:layout_width="168dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="14dp"
+                android:text="JAN 01 2020"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvSelectDate"
+                app:layout_constraintTop_toBottomOf="@+id/tilEventAddress" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEventTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Event Time"
+                android:textColorHint="#989898"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSelectDate">
+
+
+                <EditText
+                    android:id="@+id/etEventTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="#222934"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEventPrice"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Event Ticket Price"
+                android:textColorHint="#989898"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEventTime">
+
+
+                <EditText
+                    android:id="@+id/etEventPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="#222934"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAddEvent"
+                android:layout_width="340dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:background="@color/teal_700"
+                android:text="Add Event"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tilEventPrice" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

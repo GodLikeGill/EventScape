@@ -3,6 +3,7 @@ package com.group5.eventscape.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         fab.setOnClickListener(v -> {
-
+            startActivity(new Intent(this, AddEventActivity.class));
         });
     }
 }

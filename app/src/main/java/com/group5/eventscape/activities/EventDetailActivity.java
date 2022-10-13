@@ -186,7 +186,6 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onClick(View view) {
-        System.out.println("Nirav Kumbhare");
         if (view != null){
             switch (view.getId()){
                 case R.id.btnBuyNow:{

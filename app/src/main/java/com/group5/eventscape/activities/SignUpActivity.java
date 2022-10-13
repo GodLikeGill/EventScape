@@ -8,16 +8,24 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.group5.eventscape.databinding.ActivitySignUpBinding;
+import com.group5.eventscape.models.Users;
+import com.group5.eventscape.viewmodels.UsersViewModel;
+
+import java.util.UUID;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
+    private UsersViewModel usersViewModel;
+    Users newUser = new Users();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+
+        usersViewModel = UsersViewModel.getInstance(getApplication());
 
         binding.btnRegister.setOnClickListener(v -> {
             validateRegisterDetails();
@@ -40,9 +48,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if( binding.cbTermsAndCondition.isChecked()){
 
+                    newUser.setFullName(fullName);
+                    newUser.setId(UUID.randomUUID().toString());
+                    usersViewModel.addUsers(newUser);
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        //finish();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
 
                 }else {

@@ -10,8 +10,12 @@ public class Event implements Parcelable{
     private String userName;
     private String phone;
     private String title;
+    private String category;
     private String desc;
     private String address;
+    private String city;
+    private String province;
+    private String postCode;
     private String date;
     private String time;
     private String price;
@@ -20,14 +24,18 @@ public class Event implements Parcelable{
     public Event() {
     }
 
-    public Event(String id, String user, String userName, String phone, String title, String desc, String address, String date, String time, String price, String image) {
+    public Event(String id, String user, String userName, String phone, String title, String category, String desc, String address, String city, String province, String postCode, String date, String time, String price, String image) {
         this.id = id;
         this.user = user;
         this.userName = userName;
         this.phone = phone;
         this.title = title;
+        this.category = category;
         this.desc = desc;
         this.address = address;
+        this.city = city;
+        this.province = province;
+        this.postCode = postCode;
         this.date = date;
         this.time = time;
         this.price = price;
@@ -40,8 +48,12 @@ public class Event implements Parcelable{
         userName = in.readString();
         phone = in.readString();
         title = in.readString();
+        category = in.readString();
         desc = in.readString();
         address = in.readString();
+        city = in.readString();
+        province = in.readString();
+        postCode = in.readString();
         date = in.readString();
         time = in.readString();
         price = in.readString();
@@ -100,6 +112,14 @@ public class Event implements Parcelable{
         this.title = title;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDesc() {
         return desc;
     }
@@ -114,6 +134,30 @@ public class Event implements Parcelable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     public String getDate() {
@@ -160,8 +204,12 @@ public class Event implements Parcelable{
         dest.writeString(userName);
         dest.writeString(phone);
         dest.writeString(title);
+        dest.writeString(category);
         dest.writeString(desc);
         dest.writeString(address);
+        dest.writeString(city);
+        dest.writeString(province);
+        dest.writeString(postCode);
         dest.writeString(date);
         dest.writeString(time);
         dest.writeString(price);

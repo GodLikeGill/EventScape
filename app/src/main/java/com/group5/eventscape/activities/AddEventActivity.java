@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.group5.eventscape.R;
 import com.group5.eventscape.databinding.ActivityAddEventBinding;
 import com.group5.eventscape.models.Event;
 import com.group5.eventscape.viewmodels.EventViewModel;
@@ -47,6 +51,9 @@ public class AddEventActivity extends AppCompatActivity {
     private EventViewModel eventViewModel;
     ImageView eventImage;
     private String imageUUID;
+    String[] category = {"Music", "Sports", "Concert"};
+
+    ArrayAdapter<String> adapterItems;
     private Uri imageUri;
     private StorageReference storageReference;
     private DatePickerDialog.OnDateSetListener setListener;
@@ -60,10 +67,18 @@ public class AddEventActivity extends AppCompatActivity {
 
         eventViewModel = EventViewModel.getInstance(getApplication());
         eventImage = binding.ivEventImage;
+        AutoCompleteTextView autoCompleteTextView = binding.autoCompleteText;
+
+        adapterItems = new ArrayAdapter<String>(this, R.layout.category_list,category);
+        autoCompleteTextView.setAdapter(adapterItems);
+
         ImageButton btnAddImage = binding.iBtnAddUpdateEventImage;
         EditText eventTitle = binding.etEventTitle;
         EditText eventDescription = binding.etEventDescription;
         EditText eventAddress = binding.etEventAddress;
+        EditText eventCity = binding.etEventCity;
+        EditText eventProvince = binding.etEventProvince;
+        EditText eventPostCode = binding.etEventPostCode;
         TextView eventDate = binding.datePicker;
         EditText eventTime = binding.etEventTime;
         EditText eventPrice = binding.etEventPrice;
@@ -80,6 +95,7 @@ public class AddEventActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         AddEventActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener,year,month,day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });
@@ -112,7 +128,11 @@ public class AddEventActivity extends AppCompatActivity {
                 newEvent.setTitle(eventTitle.getText().toString());
                 newEvent.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
                 newEvent.setAddress(eventAddress.getText().toString());
+                newEvent.setCity(eventCity.getText().toString());
+                newEvent.setProvince(eventProvince.getText().toString());
+                newEvent.setPostCode(eventPostCode.getText().toString());
                 newEvent.setDesc(eventDescription.getText().toString());
+                newEvent.setCategory(autoCompleteTextView.getText().toString());
                 newEvent.setDate(eventDate.getText().toString());
                 newEvent.setTime(eventTime.getText().toString());
                 newEvent.setPrice(eventPrice.getText().toString());

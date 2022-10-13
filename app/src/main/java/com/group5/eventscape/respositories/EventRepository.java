@@ -20,8 +20,12 @@ public class EventRepository {
     private final String FIELD_ID = "id";
     private final String FIELD_USER = "user";
     private final String FIELD_TITLE = "title";
+    private final String FIELD_CATEGORY = "category";
     private final String FIELD_DESC = "desc";
     private final String FIELD_ADDRESS = "address";
+    private final String FIELD_CITY = "city";
+    private final String FIELD_PROVINCE = "province";
+    private final String FIELD_POSTCODE = "postcode";
     private final String FIELD_DATE = "date";
     private final String FIELD_TIME = "time";
     private final String FIELD_PRICE = "price";
@@ -59,8 +63,12 @@ public class EventRepository {
             data.put(FIELD_ID, event.getId());
             data.put(FIELD_USER, event.getUser());
             data.put(FIELD_TITLE, event.getTitle());
+            data.put(FIELD_CATEGORY, event.getCategory());
             data.put(FIELD_DESC, event.getDesc());
             data.put(FIELD_ADDRESS, event.getAddress());
+            data.put(FIELD_CITY, event.getCity());
+            data.put(FIELD_PROVINCE, event.getProvince());
+            data.put(FIELD_POSTCODE, event.getPostCode());
             data.put(FIELD_DATE, event.getDate());
             data.put(FIELD_TIME, event.getTime());
             data.put(FIELD_PRICE, event.getPrice());

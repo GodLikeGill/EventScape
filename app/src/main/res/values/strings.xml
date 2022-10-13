@@ -48,4 +48,8 @@
     <string name="notification">Notification</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile">Profile</string>
+
+    <!-- Event Detail Activity-->
+    <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
+    <string name="addToFavorite">Favorite</string>
 </resources>

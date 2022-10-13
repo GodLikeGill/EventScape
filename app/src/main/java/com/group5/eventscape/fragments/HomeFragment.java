@@ -1,5 +1,6 @@
 package com.group5.eventscape.fragments;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.group5.eventscape.OnRowClicked;
 import com.group5.eventscape.R;
+import com.group5.eventscape.activities.EventDetailActivity;
 import com.group5.eventscape.adapters.EventsAdapter;
 import com.group5.eventscape.databinding.FragmentHomeBinding;
 import com.group5.eventscape.helpers.LocationHelper;
@@ -96,15 +98,16 @@ public class HomeFragment extends Fragment implements OnRowClicked {
 
         eventViewModel = EventViewModel.getInstance(getActivity().getApplication());
 
-        //initiateLocationListener(view);
-
         this.getAllEvents(view);
-
     }
 
     @Override
     public void onRowClicked(Event events) {
+        Log.e(TAG, "EventDetail: Clicked" + events.getId() );
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 
+        intent.putExtra("curEvent", events);
+        startActivity(intent);
     }
 
     @Override
@@ -150,6 +153,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
 
                     eventsList.clear();
                     eventsList.addAll(events);
+                    initiateLocationListener(view);
                     adapter.notifyDataSetChanged();
                 }
             }

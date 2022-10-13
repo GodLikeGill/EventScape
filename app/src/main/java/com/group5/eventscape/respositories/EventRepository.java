@@ -25,7 +25,7 @@ public class EventRepository {
     private final String FIELD_ADDRESS = "address";
     private final String FIELD_CITY = "city";
     private final String FIELD_PROVINCE = "province";
-    private final String FIELD_POSTCODE = "postcode";
+    private final String FIELD_POSTCODE = "postCode";
     private final String FIELD_DATE = "date";
     private final String FIELD_TIME = "time";
     private final String FIELD_PRICE = "price";

@@ -6,8 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.auth.User;
 import com.group5.eventscape.models.Users;
-import com.group5.eventscape.respositories.UsersRepository;
+import com.group5.eventscape.repositories.UsersRepository;
 
 import java.util.List;
 

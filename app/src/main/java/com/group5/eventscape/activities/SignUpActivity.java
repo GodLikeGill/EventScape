@@ -43,11 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmPassword = this.binding.etConfirmPassword.getText().toString();
 
         if (!fullName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() ){
-
             if(password.equals(confirmPassword)){
-
                 if( binding.cbTermsAndCondition.isChecked()){
-
                     newUser.setFullName(fullName);
                     newUser.setId(UUID.randomUUID().toString());
                     usersViewModel.addUsers(newUser);
@@ -55,11 +52,9 @@ public class SignUpActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
-
                 }else {
                     Toast.makeText(this, "Please check the terms and condition box ", Toast.LENGTH_SHORT).show();
                 }
-
             }else{
                 Toast.makeText(this, "Please enter same password", Toast.LENGTH_SHORT).show();
             }

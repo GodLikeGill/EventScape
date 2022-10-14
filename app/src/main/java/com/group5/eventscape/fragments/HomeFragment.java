@@ -172,10 +172,10 @@ public class HomeFragment extends Fragment implements OnRowClicked {
                     Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
 
                     if (obtainedAddress != null){
-                        binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
+                        //binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
                         //appendDistanceToUser(lastLocation);
                     }else{
-                        binding.tvCurrentLocation.setText(lastLocation.toString());
+                        //binding.tvCurrentLocation.setText(lastLocation.toString());
                         //appendDistanceToUser(lastLocation);
                     }
                 }

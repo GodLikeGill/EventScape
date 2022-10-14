@@ -5,4 +5,7 @@
         <item name="colorPrimaryVariant">#0F9D58</item>
         <item name="colorOnPrimary">#000</item>
     </style>
+    <style name="Button.Transparent" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@android:color/transparent</item>
+    </style>
 </resources>

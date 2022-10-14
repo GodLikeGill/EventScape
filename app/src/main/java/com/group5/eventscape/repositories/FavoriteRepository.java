@@ -1,4 +1,4 @@
-package com.group5.eventscape.respositories;
+package com.group5.eventscape.repositories;
 
 import android.util.Log;
 
@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.group5.eventscape.models.Favorite;
-import com.group5.eventscape.models.Orders;
 
 import java.util.HashMap;
 import java.util.List;

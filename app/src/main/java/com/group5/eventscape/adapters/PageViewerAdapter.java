@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.group5.eventscape.fragments.ExploreFragment;
 import com.group5.eventscape.fragments.FavoriteFragment;
 import com.group5.eventscape.fragments.HomeFragment;
-import com.group5.eventscape.fragments.NotificationFragment;
+import com.group5.eventscape.fragments.ProfileFragment;
 
 public class PageViewerAdapter extends FragmentPagerAdapter {
 
@@ -27,7 +27,7 @@ public class PageViewerAdapter extends FragmentPagerAdapter {
             case 2:
                 return new FavoriteFragment();
             case 3:
-                return new NotificationFragment();
+                return new ProfileFragment();
             default:
                 return null;
         }

@@ -4,12 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 import com.group5.eventscape.models.Orders;
-import com.group5.eventscape.respositories.OrdersRepository;
-
-import java.util.List;
+import com.group5.eventscape.repositories.OrdersRepository;
 
 public class OrdersViewModel extends AndroidViewModel {
     private final OrdersRepository repository = new OrdersRepository();

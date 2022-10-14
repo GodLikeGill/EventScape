@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.group5.eventscape.models.Event;
-import com.group5.eventscape.respositories.EventRepository;
+import com.group5.eventscape.repositories.EventRepository;
 
 import java.util.List;
 

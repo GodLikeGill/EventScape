@@ -1,11 +1,9 @@
-package com.group5.eventscape.respositories;
+package com.group5.eventscape.repositories;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.group5.eventscape.models.Orders;
 

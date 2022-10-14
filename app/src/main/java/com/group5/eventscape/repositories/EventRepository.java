@@ -1,4 +1,4 @@
-package com.group5.eventscape.respositories;
+package com.group5.eventscape.repositories;
 
 import android.util.Log;
 

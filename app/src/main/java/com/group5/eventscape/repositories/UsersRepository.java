@@ -1,4 +1,4 @@
-package com.group5.eventscape.respositories;
+package com.group5.eventscape.repositories;
 
 import android.util.Log;
 
@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 import com.group5.eventscape.models.Users;
 
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ public class UsersRepository {
 
     private final FirebaseFirestore db;
     private final String COLLECTION_USERS = "Users";
-    private final String FIELD_FULL_NAME = "FullName";
+    private final String FIELD_FULL_NAME = "full_Name";
+    private final String FIELD_EMAIL = "email";
     private final String FIELD_ID = "id";
-
 
     public MutableLiveData<List<Users>> allUsers = new MutableLiveData<>();
 
@@ -60,5 +61,4 @@ public class UsersRepository {
             Log.e("TAG", "addUsers: " + e.getLocalizedMessage());
         }
     }
-
 }

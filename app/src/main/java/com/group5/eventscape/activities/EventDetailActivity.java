@@ -168,7 +168,7 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.actionFavorite:
-                Toast.makeText(EventDetailActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+                Toast.makeText(EventDetailActivity.this, "Added to Favorites", Toast.LENGTH_LONG).show();
                 return true;
 
             case android.R.id.home:

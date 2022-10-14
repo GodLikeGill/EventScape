@@ -52,4 +52,11 @@
     <!-- Event Detail Activity-->
     <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
     <string name="addToFavorite">Favorite</string>
+
+    <!-- Profile Fragment -->
+    <string name="my_profile">My Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_purchases">My Purchases</string>
+    <string name="you_can_view_all_the_event_tickets_you_purchased_recently_in_here">You can view all the event tickets you purchased recently in here.</string>
+    <string name="you_can_view_all_the_events_you_created_in_here_you_can_edit_or_delete_them">You can view all the events you created in here, you can edit or delete them.</string>
 </resources>

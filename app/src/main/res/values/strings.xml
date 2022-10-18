@@ -59,4 +59,13 @@
     <string name="my_purchases">My Purchases</string>
     <string name="you_can_view_all_the_event_tickets_you_purchased_recently_in_here">You can view all the event tickets you purchased recently in here.</string>
     <string name="you_can_view_all_the_events_you_created_in_here_you_can_edit_or_delete_them">You can view all the events you created in here, you can edit or delete them.</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="my_notifications">My Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="change_application_settings_here">Change application settings here.</string>
+    <string name="view_all_the_notifications_in_here">View all the notifications in here.</string>
+
+    <!-- Edit Profile Activity -->
+    <string name="save_profile">Save Profile</string>
+    <string name="my_events">My Events</string>
 </resources>

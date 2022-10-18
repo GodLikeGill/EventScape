@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.group5.eventscape.OnRowClicked;
+import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.databinding.CustomRowLayoutBinding;
 import com.group5.eventscape.models.Event;
 import com.squareup.picasso.Picasso;

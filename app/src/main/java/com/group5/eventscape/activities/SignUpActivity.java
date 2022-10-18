@@ -8,16 +8,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.group5.eventscape.databinding.ActivitySignUpBinding;
-import com.group5.eventscape.models.Users;
-import com.group5.eventscape.viewmodels.UsersViewModel;
-
-import java.util.UUID;
+import com.group5.eventscape.models.User;
+import com.group5.eventscape.viewmodels.UserViewModel;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
-    private UsersViewModel usersViewModel;
-    Users newUser = new Users();
+    private UserViewModel usersViewModel;
+    User newUser = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
         this.binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
 
-        usersViewModel = UsersViewModel.getInstance(getApplication());
+        usersViewModel = UserViewModel.getInstance(getApplication());
 
         binding.btnRegister.setOnClickListener(v -> {
             validateRegisterDetails();
@@ -33,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
         binding.tvLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
         });
-
     }
 
     private void validateRegisterDetails(){
@@ -45,10 +42,11 @@ public class SignUpActivity extends AppCompatActivity {
         if (!fullName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() ){
             if(password.equals(confirmPassword)){
                 if( binding.cbTermsAndCondition.isChecked()){
-                    newUser.setFullName(fullName);
-                    newUser.setId(UUID.randomUUID().toString());
-                    usersViewModel.addUsers(newUser);
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                        newUser.setFullName(fullName);
+                        newUser.setId(FirebaseAuth.getInstance().getUid());
+                        newUser.setEmail(email);
+                        usersViewModel.addUser(newUser);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());

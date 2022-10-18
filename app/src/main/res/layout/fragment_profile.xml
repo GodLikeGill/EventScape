@@ -6,28 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f0f0f0"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@color/prim"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/tvMyProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="@string/my_profile"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,21 +35,33 @@
                 android:layout_height="40dp"
                 android:backgroundTint="@android:color/transparent"
                 android:src="@drawable/logout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f0f0f0"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleProfilePicture"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:src="@drawable/profile_picture"
                 app:civ_border_color="@color/prim"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMyProfile" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvUserName"
@@ -94,9 +103,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rect"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
@@ -142,9 +151,61 @@
                     android:layout_height="wrap_content"
                     android:text="@string/you_can_view_all_the_events_you_created_in_here_you_can_edit_or_delete_them" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:id="@+id/llNotifications"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_notifications"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all_the_notifications_in_here" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/change_application_settings_here" />
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </LinearLayout>
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.group5.eventscape;
+package com.group5.eventscape.interfaces;
 
 import com.group5.eventscape.models.Event;
 

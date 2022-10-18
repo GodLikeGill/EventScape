@@ -1,6 +1,7 @@
 package com.group5.eventscape.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -17,7 +18,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+            if (sh.getBoolean("isLoggedIn", false))
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            else
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
             finish();
         }, 2000);
     }

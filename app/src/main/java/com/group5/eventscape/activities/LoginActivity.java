@@ -3,8 +3,10 @@ package com.group5.eventscape.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgotPass, register;
     EditText email, pass;
     Button login;
+    CheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         email = findViewById(R.id.etEmail);
         pass = findViewById(R.id.etPassword);
+        rememberMe = findViewById(R.id.cbRememberMe);
 
         forgotPass.setOnClickListener(v -> {
             startActivity(new Intent(this, ForgotPasswordActivity.class));
@@ -42,6 +46,12 @@ public class LoginActivity extends AppCompatActivity {
             String passText = pass.getText().toString();
             if (!emailText.isEmpty() || !passText.isEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passText).addOnSuccessListener(authResult -> {
+                    if (rememberMe.isChecked()){
+                        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                        myEdit.putBoolean("isLoggedIn", true);
+                        myEdit.apply();
+                    }
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());

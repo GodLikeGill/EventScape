@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
-import com.group5.eventscape.OnRowClicked;
-import com.group5.eventscape.R;
+import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.activities.EventDetailActivity;
 import com.group5.eventscape.adapters.EventsAdapter;
 import com.group5.eventscape.databinding.FragmentHomeBinding;

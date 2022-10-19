@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,5 +58,6 @@ public class MyEventsActivity extends AppCompatActivity {
                 }
             }
         });
+        Log.d("TAG", "onResume: " + myEvents);
     }
 }

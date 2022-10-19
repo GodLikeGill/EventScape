@@ -33,34 +33,65 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
         android:textColor="@color/gray"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/imgThumb"
         app:layout_constraintTop_toBottomOf="@id/tvEventTitle" />
 
     <TextView
-        android:id="@+id/tvEventDateTime"
+        android:id="@+id/tvPurchaseDateAndTime"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/gray"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgThumb"
         app:layout_constraintTop_toBottomOf="@id/tvLocation" />
 
     <TextView
-        android:id="@+id/tv_distance"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvNumberOfTickets"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:textColor="@color/prim"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imgThumb"
+        app:layout_constraintTop_toBottomOf="@id/tvPurchaseDateAndTime" />
+
+    <TextView
+        android:id="@+id/tvTicketPrice"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imgThumb"
+        app:layout_constraintTop_toBottomOf="@id/tvNumberOfTickets" />
+
+    <TextView
+        android:id="@+id/tvTotalPurchasePrice"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/imgThumb"
+        app:layout_constraintTop_toBottomOf="@id/tvTicketPrice" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_distance"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:textColor="@color/prim"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

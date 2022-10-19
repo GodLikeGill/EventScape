@@ -19,7 +19,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder>{
     private final Context context;
-    private final ArrayList<Event> dataSourceArray;
+    private ArrayList<Event> dataSourceArray;
     CustomRowLayoutBinding binding;
     private final OnRowClicked clickListener;
 
@@ -46,6 +46,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         return this.dataSourceArray.size();
     }
 
+    public void filteredList(ArrayList<Event> filteredList){
+        dataSourceArray = filteredList;
+        notifyDataSetChanged();
+    }
+
     public class EventsViewHolder extends RecyclerView.ViewHolder {
         CustomRowLayoutBinding itemBinding;
 
@@ -67,7 +72,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                     .into(itemBinding.imgThumb);
 
             //itemBinding.tvDistance.setText(String.valueOf( String.format("%.1f",item.getDistance()) + " km" ));
-            itemBinding.tvDistance.setText("10.00 km");
+            //itemBinding.tvDistance.setText("10.00 km");
 
             itemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

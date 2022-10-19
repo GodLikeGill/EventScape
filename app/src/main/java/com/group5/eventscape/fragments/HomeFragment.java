@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,25 +62,27 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         this.locationHelper = LocationHelper.getInstance();
         this.locationHelper.checkPermissions(view.getContext());
 
-        this.locationHelper.getLastLocation(view.getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
-            @Override
-            public void onChanged(Location location) {
-                if (location != null){
-                    lastLocation = location;
 
-                    Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
+        if(this.locationHelper.getLastLocation(view.getContext()) != null){
+            this.locationHelper.getLastLocation(view.getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
+                @Override
+                public void onChanged(Location location) {
+                    if (location != null){
+                        lastLocation = location;
 
-                    if (obtainedAddress != null){
-                        binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
+                        Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
+
+                        if (obtainedAddress != null){
+                            binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
+                        }else{
+                            binding.tvCurrentLocation.setText(lastLocation.toString());
+                        }
                     }else{
-                        binding.tvCurrentLocation.setText(lastLocation.toString());
+                        binding.tvCurrentLocation.setText("Last location not obtained");
                     }
-                }else{
-                    binding.tvCurrentLocation.setText("Last location not obtained");
                 }
-            }
-        });
-
+            });
+        }
 
         return view;
     }
@@ -97,7 +101,38 @@ public class HomeFragment extends Fragment implements OnRowClicked {
 
         eventViewModel = EventViewModel.getInstance(getActivity().getApplication());
 
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
         this.getAllEvents(view);
+    }
+
+    private void filter(String searchString){
+        ArrayList<Event> filteredEventList = new ArrayList<>();
+
+        for (Event item : eventsList){
+            if(item.getTitle().toLowerCase().contains(searchString.toLowerCase())){
+                filteredEventList.add(item);
+            }
+//            if(item.getTask().toLowerCase().contains(searchString.toLowerCase())){
+//                filteredTaskerList.add(item);
+//            }
+        }
+        adapter.filteredList(filteredEventList);
     }
 
     @Override
@@ -171,10 +206,10 @@ public class HomeFragment extends Fragment implements OnRowClicked {
                     Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
 
                     if (obtainedAddress != null){
-                        //binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
+                        binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
                         //appendDistanceToUser(lastLocation);
                     }else{
-                        //binding.tvCurrentLocation.setText(lastLocation.toString());
+                        binding.tvCurrentLocation.setText(lastLocation.toString());
                         //appendDistanceToUser(lastLocation);
                     }
                 }

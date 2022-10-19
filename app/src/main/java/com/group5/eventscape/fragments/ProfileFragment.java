@@ -24,6 +24,7 @@ import com.group5.eventscape.R;
 import com.group5.eventscape.activities.EditProfileActivity;
 import com.group5.eventscape.activities.LoginActivity;
 import com.group5.eventscape.activities.MyEventsActivity;
+import com.group5.eventscape.activities.MyPurchasesActivity;
 import com.group5.eventscape.models.User;
 import com.group5.eventscape.viewmodels.UserViewModel;
 import com.squareup.picasso.Picasso;
@@ -77,6 +78,7 @@ public class ProfileFragment extends Fragment {
         });
 
         myEvents.setOnClickListener(v -> startActivity(new Intent(getContext(), MyEventsActivity.class)));
+        myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchasesActivity.class)));
         editProfile.setOnClickListener(v -> startActivity(new Intent(getContext(), EditProfileActivity.class)));
     }
 

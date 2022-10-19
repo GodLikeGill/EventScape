@@ -6,6 +6,11 @@ import android.os.Parcelable;
 public class Orders implements Parcelable {
     private String id;
     private String eventId;
+    private String eventImageThumb;
+    private String eventTitle;
+    private String eventLocation;
+    private String eventDate;
+    private String eventTime;
     private String userId;
     private String userEmail;
     private String numberOfTickets;
@@ -16,9 +21,16 @@ public class Orders implements Parcelable {
     public Orders(){
     }
 
-    public Orders(String id, String eventId, String userId, String userEmail, String numberOfTickets, String ticketPrice, String totalOrderPrice, String orderDate) {
+    public Orders(String id, String eventId, String eventImageThumb, String eventTitle, String eventLocation, String eventDate, String eventTime, String userId, String userEmail, String numberOfTickets, String ticketPrice, String totalOrderPrice, String orderDate) {
         this.id = id;
         this.eventId = eventId;
+
+        this.eventImageThumb = eventImageThumb;
+        this.eventTitle = eventTitle;
+        this.eventLocation = eventLocation;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+
         this.userId = userId;
         this.userEmail = userEmail;
         this.numberOfTickets = numberOfTickets;
@@ -30,6 +42,13 @@ public class Orders implements Parcelable {
     protected Orders(Parcel in) {
         id = in.readString();
         eventId = in.readString();
+
+        eventImageThumb = in.readString();
+        eventTitle = in.readString();
+        eventLocation = in.readString();
+        eventDate = in.readString();
+        eventTime = in.readString();
+
         userId = in.readString();
         userEmail = in.readString();
         numberOfTickets = in.readString();
@@ -52,6 +71,46 @@ public class Orders implements Parcelable {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
+    }
+
+    public String getEventImageThumb() {
+        return eventImageThumb;
+    }
+
+    public void setEventImageThumb(String eventImageThumb) {
+        this.eventImageThumb = eventImageThumb;
+    }
+
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    public void setEventTitle(String eventTitle) {
+        this.eventTitle = eventTitle;
+    }
+
+    public String getEventLocation() {
+        return eventLocation;
+    }
+
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
     }
 
     public String getUserId() {
@@ -123,11 +182,37 @@ public class Orders implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(eventId);
+
+        parcel.writeString(eventImageThumb);
+        parcel.writeString(eventTitle);
+        parcel.writeString(eventLocation);
+        parcel.writeString(eventDate);
+        parcel.writeString(eventTime);
+
         parcel.writeString(userId);
         parcel.writeString(userEmail);
         parcel.writeString(numberOfTickets);
         parcel.writeString(ticketPrice);
         parcel.writeString(totalOrderPrice);
         parcel.writeString(orderDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id='" + id + '\'' +
+                ", eventId='" + eventId + '\'' +
+                ", eventImageThumb='" + eventImageThumb + '\'' +
+                ", eventTitle='" + eventTitle + '\'' +
+                ", eventLocation='" + eventLocation + '\'' +
+                ", eventDate='" + eventDate + '\'' +
+                ", eventTime='" + eventTime + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", numberOfTickets='" + numberOfTickets + '\'' +
+                ", ticketPrice='" + ticketPrice + '\'' +
+                ", totalOrderPrice='" + totalOrderPrice + '\'' +
+                ", orderDate='" + orderDate + '\'' +
+                '}';
     }
 }

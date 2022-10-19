@@ -3,6 +3,8 @@ package com.group5.eventscape.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,11 +22,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.group5.eventscape.R;
 import com.group5.eventscape.models.Event;
+import com.group5.eventscape.models.Favorite;
 import com.group5.eventscape.models.Orders;
+import com.group5.eventscape.viewmodels.FavoriteViewModel;
 import com.group5.eventscape.viewmodels.OrdersViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -32,11 +41,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class EventDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private String TAG = this.getClass().getCanonicalName();
+
+    //Toolbar menu
+    private Menu toolbarMenu;
+
+    public Boolean isFavoriteEvent = false;
+
     //firebase
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     private Spinner spinner;
     private static final Integer[] paths = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -60,6 +77,9 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
     private Orders order;
     private OrdersViewModel ordersViewModel;
+
+    private Favorite favorite;
+    private FavoriteViewModel favoriteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +162,21 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.order = new Orders();
         this.ordersViewModel = OrdersViewModel.getInstance(this.getApplication());
 
+        // add to favorite
+        this.favorite = new Favorite();
+        this.favoriteViewModel = FavoriteViewModel.getInstance(this.getApplication());
+
+
+        this.favoriteViewModel.getFavoriteForCurrentEvent(curEvent.getId());
+        this.favoriteViewModel.favoriteEvent.observe(this, fav -> {
+            favorite = fav;
+            Log.e(TAG, "NNNK: " + fav);
+            this.isFavoriteEvent = true;
+        });
+
+
+        //this.checkFavorite();
+
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -160,6 +195,7 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        this.toolbarMenu = menu;
         return true;
     }
 
@@ -168,7 +204,16 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.actionFavorite:
-                Toast.makeText(EventDetailActivity.this, "Added to Favorites", Toast.LENGTH_LONG).show();
+                if(this.isFavoriteEvent){
+                    Log.e(TAG, "onOptionsItemSelected: it is not favorite");
+                    this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_24));
+                }
+                else{
+                    Log.e(TAG, "onOptionsItemSelected: it is favorite");
+                    this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_filled_24));
+
+                }
+                this.addToFavorite();
                 return true;
 
             case android.R.id.home:
@@ -197,11 +242,50 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
+    private void addToFavorite(){
+        //toggleFavorite();
+        this.favorite.setEventId(curEvent.getId());
+        this.favoriteViewModel.checkForFavorite(this.favorite);
+        //this.favoriteViewModel.addToFavorite(this.favorite);
+        Toast.makeText(EventDetailActivity.this, "Added to Favorites", Toast.LENGTH_LONG).show();
+    }
+
+    private void toggleFavorite() {
+        if(isFavoriteEvent){
+            this.isFavoriteEvent = false;
+        }
+        else{
+            this.isFavoriteEvent = true;
+        }
+
+
+
+
+//        this.favoriteViewModel.isFavorite.observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                if(aBoolean){
+//                    Log.e(TAG, "checkFavorite: This event is in favorite list");
+//                }
+//                else{
+//                    Log.e(TAG, "checkFavorite: This event is not in favorite list");
+//                }
+//            }
+//        });
+    }
+
     private void placeOrder(){
         Date currentTime = Calendar.getInstance().getTime();
 
 
         this.order.setEventId(curEvent.getId());
+
+        this.order.setEventImageThumb(curEvent.getImage());
+        this.order.setEventTitle(curEvent.getTitle());
+        this.order.setEventLocation(curEvent.getAddress() + ", " + curEvent.getCity() + ", " + curEvent.getProvince() + ", " + curEvent.getPostCode());
+        this.order.setEventDate(curEvent.getDate());
+        this.order.setEventTime(curEvent.getTime());
+
         this.order.setUserId(this.loggedInUserId);
         this.order.setUserEmail(this.loggedInUserEmail);
         this.order.setNumberOfTickets(this.numberOfTickets.toString());
@@ -238,4 +322,6 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 //    private void goToHomeScreen() {
 //        this.finish();
 //    }
+
+
 }

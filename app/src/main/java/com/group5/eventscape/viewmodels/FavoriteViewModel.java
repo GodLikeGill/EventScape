@@ -7,8 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.group5.eventscape.models.Event;
 import com.group5.eventscape.models.Favorite;
 import com.group5.eventscape.repositories.FavoriteRepository;
+
+import java.util.List;
 
 public class FavoriteViewModel extends AndroidViewModel {
     private final FavoriteRepository repository = new FavoriteRepository();
@@ -16,6 +19,7 @@ public class FavoriteViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> isFavorite = new MutableLiveData<>();
     public MutableLiveData<Favorite> favoriteEvent;
+    public MutableLiveData<List<Favorite>> allFav;
 
     public FavoriteViewModel(@NonNull Application application) {
         super(application);
@@ -29,6 +33,11 @@ public class FavoriteViewModel extends AndroidViewModel {
     }
 
     public void addToFavorite(Favorite favorite){ this.repository.addToFavorite(favorite); }
+
+    public void getAllFav(){
+        this.repository.getAllFav();
+        this.allFav = this.repository.allFav;
+    }
 
     public void getFavoriteForCurrentEvent(String id) {
         this.repository.getFavoriteForCurrentEvent(id);

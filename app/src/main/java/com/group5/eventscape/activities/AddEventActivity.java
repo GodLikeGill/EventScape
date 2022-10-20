@@ -9,11 +9,14 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +45,10 @@ import com.group5.eventscape.models.Event;
 import com.group5.eventscape.viewmodels.EventViewModel;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -50,13 +57,16 @@ public class AddEventActivity extends AppCompatActivity {
     private static final int GalleryPick = 1;
     private EventViewModel eventViewModel;
     ImageView eventImage;
+    Button btnEventTime;
+    int hour, minute;
     private String imageUUID;
-    String[] category = {"Music", "Sports", "Concert"};
+    String[] category = {"Music", "Sports", "Concerts", "Expos", "Festivals", "Workshops"};
 
     ArrayAdapter<String> adapterItems;
     private Uri imageUri;
     private StorageReference storageReference;
     private DatePickerDialog.OnDateSetListener setListener;
+    private DatePickerDialog.OnDateSetListener setListener2;
     Event newEvent = new Event();
 
     @Override
@@ -72,6 +82,7 @@ public class AddEventActivity extends AppCompatActivity {
         adapterItems = new ArrayAdapter<String>(this, R.layout.category_list,category);
         autoCompleteTextView.setAdapter(adapterItems);
 
+
         ImageButton btnAddImage = binding.iBtnAddUpdateEventImage;
         EditText eventTitle = binding.etEventTitle;
         EditText eventDescription = binding.etEventDescription;
@@ -80,7 +91,8 @@ public class AddEventActivity extends AppCompatActivity {
         EditText eventProvince = binding.etEventProvince;
         EditText eventPostCode = binding.etEventPostCode;
         TextView eventDate = binding.datePicker;
-        EditText eventTime = binding.etEventTime;
+        TextView eventDate2 = binding.datePicker2;
+        btnEventTime = binding.btnEventTime;
         EditText eventPrice = binding.etEventPrice;
         AppCompatButton btnAddEvent = binding.btnAddEvent;
 
@@ -88,6 +100,9 @@ public class AddEventActivity extends AppCompatActivity {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final int year2 = calendar.get(Calendar.YEAR);
+        final int month2 = calendar.get(Calendar.MONTH);
+        final int day2 = calendar.get(Calendar.DAY_OF_MONTH);
 
         eventDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +124,26 @@ public class AddEventActivity extends AppCompatActivity {
             }
         };
 
+        eventDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        AddEventActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener2,year2,month2,day2);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+            }
+        });
+
+        setListener2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year2, int month2, int dayOfMonth2) {
+                month2 = month2+1;
+                String date2 = dayOfMonth2+"/"+month2+"/"+year2;
+                eventDate2.setText(date2);
+            }
+        };
+
         btnAddImage.setOnClickListener(view -> {
             if (ContextCompat.checkSelfPermission(AddEventActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 Intent galleryIntent = new Intent();
@@ -121,26 +156,68 @@ public class AddEventActivity extends AppCompatActivity {
         });
 
         btnAddEvent.setOnClickListener(view -> {
-            if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || eventTime.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
-                Toast.makeText(AddEventActivity.this, "All details should be Filled ", Toast.LENGTH_SHORT).show();
-            } else {
-                uploadImage();
-                newEvent.setTitle(eventTitle.getText().toString());
-                newEvent.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                newEvent.setAddress(eventAddress.getText().toString());
-                newEvent.setCity(eventCity.getText().toString());
-                newEvent.setProvince(eventProvince.getText().toString());
-                newEvent.setPostCode(eventPostCode.getText().toString());
-                newEvent.setDesc(eventDescription.getText().toString());
-                newEvent.setCategory(autoCompleteTextView.getText().toString());
-                newEvent.setDate(eventDate.getText().toString());
-                newEvent.setTime(eventTime.getText().toString());
-                newEvent.setPrice(eventPrice.getText().toString());
-                newEvent.setId(UUID.randomUUID().toString());
-                eventViewModel.addEvent(newEvent);
-                finish();
+
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addressList;
+            double longitude;
+            double latitude;
+
+            String address = eventAddress.getText().toString() + "," + eventCity.getText().toString();
+
+            try {
+                addressList = geocoder.getFromLocationName(address,1);
+
+                if(addressList != null){
+                    longitude = addressList.get(0).getLongitude();
+                    latitude = addressList.get(0).getLatitude();
+
+                    if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || btnEventTime.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
+                        Toast.makeText(AddEventActivity.this, "All details should be Filled ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        uploadImage();
+                        newEvent.setTitle(eventTitle.getText().toString());
+                        newEvent.setUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        newEvent.setAddress(eventAddress.getText().toString());
+                        newEvent.setCity(eventCity.getText().toString());
+                        newEvent.setProvince(eventProvince.getText().toString());
+                        newEvent.setLongitude(String.valueOf(longitude));
+                        newEvent.setLatitude(String.valueOf(latitude));
+                        newEvent.setPostCode(eventPostCode.getText().toString());
+                        newEvent.setDesc(eventDescription.getText().toString());
+                        newEvent.setCategory(autoCompleteTextView.getText().toString());
+                        newEvent.setDate(eventDate.getText().toString());
+                        newEvent.setDate2(eventDate2.getText().toString());
+                        newEvent.setTime(btnEventTime.getText().toString());
+                        newEvent.setPrice(eventPrice.getText().toString());
+                        newEvent.setId(UUID.randomUUID().toString());
+                        eventViewModel.addEvent(newEvent);
+                        finish();
+                    }
+                }else{
+                    Toast.makeText(AddEventActivity.this, "Please Enter Correct Address ", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+
         });
+    }
+
+    public void popTimePicker(View view){
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                hour = i;
+                minute = i1;
+                btnEventTime.setText(String.format(Locale.getDefault(), "%02d:%02d",hour,minute));
+            }
+        };
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour, minute, true);
+        timePickerDialog.setTitle("Select Event Time");
+        timePickerDialog.show();
     }
 
     @Override

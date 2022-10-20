@@ -55,16 +55,17 @@
                     android:id="@+id/ivEventImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E1E1E1"
+                    android:background="@drawable/ic_baseline_image_24"
+                    android:backgroundTint="#E1E1E1"
                     android:contentDescription="image"
                     android:scaleType="fitXY" />
 
                 <ImageButton
                     android:id="@+id/iBtnAddUpdateEventImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="46dp"
+                    android:layout_height="49dp"
                     android:layout_gravity="end|bottom"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/add"
                     android:padding="16dp" />
             </FrameLayout>
 
@@ -95,20 +96,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilEventCategory"
+                android:id="@+id/tilEventCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Select Category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilEventTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:hint="Select Category"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tilEventTitle"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"/>
+                    android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -244,24 +245,24 @@
 
             <TextView
                 android:id="@+id/tvSelectDate"
-                android:layout_width="123dp"
-                android:layout_height="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="Select Date"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilEventPostCode" />
 
             <TextView
                 android:id="@+id/datePicker"
                 style="?android:spinnerStyle"
-                android:layout_width="168dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="14dp"
-                android:text="JAN 01 2020"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="Start"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -269,31 +270,48 @@
                 app:layout_constraintStart_toEndOf="@+id/tvSelectDate"
                 app:layout_constraintTop_toBottomOf="@+id/tilEventPostCode" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEventTime"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="-"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/datePicker"
+                app:layout_constraintTop_toBottomOf="@+id/tilEventPostCode" />
+
+            <TextView
+                android:id="@+id/datePicker2"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="End"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/tilEventPostCode" />
+
+            <Button
+                android:id="@+id/btnEventTime"
+                android:onClick="popTimePicker"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="Event Time"
-                android:textColorHint="#989898"
+                android:text="Select Event Time"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvSelectDate">
+                app:layout_constraintTop_toBottomOf="@id/tvSelectDate" />
 
 
-                <EditText
-                    android:id="@+id/etEventTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="#222934"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilEventPrice"
@@ -307,14 +325,14 @@
                 android:textColorHint="#989898"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilEventTime">
+                app:layout_constraintTop_toBottomOf="@id/btnEventTime">
 
 
                 <EditText
                     android:id="@+id/etEventPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:padding="16dp"
                     android:textColor="#222934"
                     android:textSize="16sp" />
@@ -323,17 +341,20 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnAddEvent"
-                android:layout_width="340dp"
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="26dp"
                 android:backgroundTint="@color/prim"
                 android:text="Add Event"
+                android:textSize="20sp"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tilEventPrice" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

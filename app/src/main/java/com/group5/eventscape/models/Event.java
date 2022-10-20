@@ -16,7 +16,10 @@ public class Event implements Parcelable{
     private String city;
     private String province;
     private String postCode;
+    private String longitude;
+    private String latitude;
     private String date;
+    private String date2;
     private String time;
     private String price;
     private String image;
@@ -24,7 +27,7 @@ public class Event implements Parcelable{
     public Event() {
     }
 
-    public Event(String id, String user, String userName, String phone, String title, String category, String desc, String address, String city, String province, String postCode, String date, String time, String price, String image) {
+    public Event(String id, String user, String userName, String phone, String title, String category, String desc, String longitude, String latitude, String address, String city, String province, String postCode, String date, String date2, String time, String price, String image) {
         this.id = id;
         this.user = user;
         this.userName = userName;
@@ -33,10 +36,13 @@ public class Event implements Parcelable{
         this.category = category;
         this.desc = desc;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.city = city;
         this.province = province;
         this.postCode = postCode;
         this.date = date;
+        this.date2 = date2;
         this.time = time;
         this.price = price;
         this.image = image;
@@ -51,10 +57,13 @@ public class Event implements Parcelable{
         category = in.readString();
         desc = in.readString();
         address = in.readString();
+        longitude = in.readString();
+        latitude = in.readString();
         city = in.readString();
         province = in.readString();
         postCode = in.readString();
         date = in.readString();
+        date2 = in.readString();
         time = in.readString();
         price = in.readString();
         image = in.readString();
@@ -128,6 +137,22 @@ public class Event implements Parcelable{
         this.desc = desc;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -166,6 +191,14 @@ public class Event implements Parcelable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDate2() {
+        return date2;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     public String getTime() {
@@ -207,10 +240,13 @@ public class Event implements Parcelable{
         dest.writeString(category);
         dest.writeString(desc);
         dest.writeString(address);
+        dest.writeString(longitude);
+        dest.writeString(latitude);
         dest.writeString(city);
         dest.writeString(province);
         dest.writeString(postCode);
         dest.writeString(date);
+        dest.writeString(date2);
         dest.writeString(time);
         dest.writeString(price);
         dest.writeString(image);

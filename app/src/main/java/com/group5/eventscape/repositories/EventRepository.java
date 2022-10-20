@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.group5.eventscape.models.Event;
+import com.group5.eventscape.models.Favorite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,15 +24,19 @@ public class EventRepository {
     private final String FIELD_CATEGORY = "category";
     private final String FIELD_DESC = "desc";
     private final String FIELD_ADDRESS = "address";
+    private final String FIELD_LONGITUDE = "longitude";
+    private final String FIELD_LATITUDE = "latitude";
     private final String FIELD_CITY = "city";
     private final String FIELD_PROVINCE = "province";
-    private final String FIELD_POSTCODE = "postCode";
+    private final String FIELD_POSTCODE = "postcode";
     private final String FIELD_DATE = "date";
+    private final String FIELD_DATE2 = "date2";
     private final String FIELD_TIME = "time";
     private final String FIELD_PRICE = "price";
     private final String FIELD_IMAGE = "image";
 
     public MutableLiveData<List<Event>> allEvents = new MutableLiveData<>();
+    public MutableLiveData<Event> eventById = new MutableLiveData<>();
 
     public EventRepository() {
         db = FirebaseFirestore.getInstance();
@@ -57,6 +62,25 @@ public class EventRepository {
         }
     }
 
+    public void getEventById(String id) {
+        try {
+            db.collection(COLLECTION_EVENTS)
+                    .document(id)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            eventById.postValue(documentSnapshot.toObject(Event.class));
+                        } else {
+                            Log.e("TAG", "getEvent: No data retrieved.");
+                        }
+                    }).addOnFailureListener(e -> {
+                        Log.e("TAG", "getEvent: " + e.getLocalizedMessage());
+                    });
+        } catch (Exception e) {
+            Log.e("TAG", "getEvent: " + e.getLocalizedMessage());
+        }
+    }
+
     public void addEvent(Event event) {
         try {
             Map<String, Object> data = new HashMap<>();
@@ -67,9 +91,12 @@ public class EventRepository {
             data.put(FIELD_DESC, event.getDesc());
             data.put(FIELD_ADDRESS, event.getAddress());
             data.put(FIELD_CITY, event.getCity());
+            data.put(FIELD_LONGITUDE, event.getLongitude());
+            data.put(FIELD_LATITUDE, event.getLatitude());
             data.put(FIELD_PROVINCE, event.getProvince());
             data.put(FIELD_POSTCODE, event.getPostCode());
             data.put(FIELD_DATE, event.getDate());
+            data.put(FIELD_DATE2, event.getDate2());
             data.put(FIELD_TIME, event.getTime());
             data.put(FIELD_PRICE, event.getPrice());
             data.put(FIELD_IMAGE, event.getImage());

@@ -1,0 +1,51 @@
+package com.group5.eventscape.viewmodels;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+import com.group5.eventscape.models.User;
+import com.group5.eventscape.repositories.UsersRepository;
+
+import java.util.List;
+
+public class UserViewModel extends AndroidViewModel {
+
+    private final UsersRepository repository = new UsersRepository();
+    private static UserViewModel instance;
+
+    public MutableLiveData<List<User>> allUsers;
+    public MutableLiveData<User> currentUser;
+
+    public UserViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public static UserViewModel getInstance(Application application) {
+        if (instance == null) {
+            instance = new UserViewModel(application);
+        }
+        return instance;
+    }
+
+    public UsersRepository getUsersRepository() {
+        return this.repository;
+    }
+
+    public void getAllUsers() {
+        this.repository.getAllUsers();
+        this.allUsers = this.repository.allUsers;
+    }
+
+    public void getCurrentUser(String id) {
+        this.repository.getCurrentUser(id);
+        this.currentUser = this.repository.currentUser;
+    }
+
+    public void addUser(User user) {
+        this.repository.addUser(user);
+    }
+    public void updateUser(User user) { this.repository.updateUser(user); }
+}

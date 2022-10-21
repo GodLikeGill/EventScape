@@ -1,3 +1,71 @@
 <resources>
     <string name="app_name">EventScape</string>
+    <string name="title_login">LOGIN</string>
+    <string name="et_hint_email_id">Email ID</string>
+    <string name="et_hint_password">Password</string>
+    <string name="lbl_forgot_password">Forgot Password?</string>
+    <string name="btn_lbl_login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register"><u>Register</u></string>
+
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+
+    <string name="hint_full_name">Full Name</string>
+    <string name="et_hint_confirm_password">Confirm Password</string>
+
+    <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Condition </u></string>
+    <string name="btn_lbl_register">Register</string>
+
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login"><u>Login</u></string>
+
+    <string name="err_msg_enter_first_name">Please enter first name.</string>
+    <string name="err_msg_enter_last_name">Please enter last name.</string>
+    <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="err_msg_enter_password">Please enter password.</string>
+    <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
+    <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
+
+    <string name="please_wait">Please Wait&#8230;</string>
+
+    <string name="title_forgot_password">FORGOT PASSWORD?</string>
+    <string name="forgot_password_title_description">Enter your username and e-mail address we\'ll send you a email to reset your password</string>
+    <string name="btn_lbl_submit">Submit</string>
+
+    <string name="email_sent_success">Email sent successfully to reset your password!</string>
+
+    <string name="register_success">You are registered successfully.</string>
+
+    <!-- Forgot Password Activity-->
+    <string name="btn_lbl_reset_password">RESET PASSWORD</string>
+    <string name="or">Or</string>
+
+    <!-- Main Activity -->
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="favorites">Favorites</string>
+    <string name="notification">Notification</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
+
+    <!-- Event Detail Activity-->
+    <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
+    <string name="addToFavorite">Favorite</string>
+
+    <!-- Profile Fragment -->
+    <string name="my_profile">My Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_purchases">My Purchases</string>
+    <string name="you_can_view_all_the_event_tickets_you_purchased_recently_in_here">You can view all the event tickets you purchased recently in here.</string>
+    <string name="you_can_view_all_the_events_you_created_in_here_you_can_edit_or_delete_them">You can view all the events you created in here, you can edit or delete them.</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="my_notifications">My Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="change_application_settings_here">Change application settings here.</string>
+    <string name="view_all_the_notifications_in_here">View all the notifications in here.</string>
+
+    <!-- Edit Profile Activity -->
+    <string name="save_profile">Save Profile</string>
+    <string name="my_events">My Events</string>
 </resources>

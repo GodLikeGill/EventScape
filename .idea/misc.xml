@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/drawable-v24/ic_favorite_24.xml" value="0.2165" />
         <entry key="app/src/main/res/drawable/add.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/border_image.xml" value="0.24" />
+        <entry key="app/src/main/res/drawable/button_border.xml" value="0.2165" />
         <entry key="app/src/main/res/drawable/custom_search_icon.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/home.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_map_pin.xml" value="0.1455" />
@@ -27,11 +28,13 @@
         <entry key="app/src/main/res/drawable/ic_search_focused.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/profile.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/rounded_up_input.xml" value="0.1455" />
+        <entry key="app/src/main/res/layout/activity_event_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_my_events.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_my_purchases.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_purchase_summary.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/custom_row_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/custom_row_layout_my_purchases.xml" value="0.25" />

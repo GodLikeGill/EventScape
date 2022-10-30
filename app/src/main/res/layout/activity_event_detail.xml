@@ -28,43 +28,48 @@
             android:id="@+id/bannerImage"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:contentDescription="Event Banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:srcCompat="@drawable/ic_banner_foreground" />
+            app:srcCompat="@drawable/ic_banner_foreground"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/eventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="Event Title Event Title Event Title Event Title"
+            android:textColor="@color/prim_text"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@color/prim_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bannerImage" />
+            app:layout_constraintTop_toBottomOf="@+id/bannerImage"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/calenderIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="Calender Icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventTitle"
-            app:srcCompat="@drawable/calender_24" />
+            app:srcCompat="@drawable/calender_24"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/eventDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="Wed, Oct 12 - Sat, Oct 15"
             android:textColor="@color/black"
@@ -88,8 +93,8 @@
             android:id="@+id/locationIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventTime"
             app:srcCompat="@drawable/location_pin_24" />
@@ -98,8 +103,8 @@
             android:id="@+id/address1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="The Wstin Harbour Castle"
             android:textColor="@color/black"
@@ -123,8 +128,8 @@
             android:id="@+id/ticketIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address2"
             app:srcCompat="@drawable/ic_dollar_sign_24" />
@@ -133,8 +138,8 @@
             android:id="@+id/eventPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="CA$ 39.99"
             android:textColor="@color/black"
@@ -158,8 +163,8 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,12 +174,12 @@
             android:id="@+id/eventDescriptionLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="About"
-            android:textSize="20sp"
             android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -183,12 +188,12 @@
             android:id="@+id/eventDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="sans-serif-medium"
             android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
-            android:textSize="14sp"
             android:textColor="@color/prim_text"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventDescriptionLabel" />
@@ -197,8 +202,8 @@
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -208,51 +213,94 @@
             android:id="@+id/orderLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="Order"
-            android:textSize="20sp"
             android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
         <TextView
-            android:id="@+id/orderDeta"
+            android:id="@+id/tvNumberOfTickets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-medium"
             android:text="Select number of tickets"
-            android:textSize="14sp"
             android:textColor="@color/prim_text"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderLabel" />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:fontFamily="sans-serif-medium"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#00FFFFFF"
+            android:padding="0dp"
+            android:text="@string/minusButton"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/etNumberOfTickets"
+            app:layout_constraintTop_toBottomOf="@+id/orderLabel" />
+
+        <EditText
+            android:id="@+id/etNumberOfTickets"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="number"
+            android:maxLength="2"
+            android:text="1"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+            app:layout_constraintTop_toBottomOf="@+id/orderLabel" />
+
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#00FFFFFF"
+            android:padding="0dp"
+            android:text="@string/plusButton"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderLabel" />
+
+
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:visibility="invisible" />-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/orderLabel" />-->
 
         <Button
             android:id="@+id/btnBuyNow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="19dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="19dp"
+            android:padding="10dp"
             android:text="@string/btn_lbl_buy_ticket"
             android:textColor="@android:color/white"
             android:textSize="@dimen/btn_textSize"
-            app:layout_constraintTop_toBottomOf="@+id/orderDeta"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumberOfTickets"
             tools:layout_editor_absoluteX="0dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

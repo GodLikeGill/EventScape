@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import android.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -75,11 +77,17 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     private TextView eventDescription;
     private Button purchaseButton;
 
+    private Button minusButton;
+    private Button plusButton;
+    private EditText totalTickets;
+
     private Orders order;
     private OrdersViewModel ordersViewModel;
 
     private Favorite favorite;
     private FavoriteViewModel favoriteViewModel;
+
+    private String generatedOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,18 +101,17 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.loggedInUserEmail = currentUser.getEmail();
 
         //Spinner Code
-        spinner = (Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(EventDetailActivity.this,
-                android.R.layout.simple_spinner_item,paths);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+//        spinner = (Spinner)findViewById(R.id.spinner);
+//        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(EventDetailActivity.this,
+//                android.R.layout.simple_spinner_item,paths);
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(this);
 
         //get event data
         this.curEvent = (Event) getIntent().getParcelableExtra("curEvent");
         this.purchaseTotal = this.curEvent.getPrice();
-
 
         // Toolbar code
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -154,8 +161,16 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.purchaseButton = findViewById(R.id.btnBuyNow);
         this.purchaseButton.setText("PURCHASE FOR CA $" + this.purchaseTotal);
 
-        this.purchaseButton = findViewById(R.id.btnBuyNow);
+//        this.purchaseButton = findViewById(R.id.btnBuyNow);
         this.purchaseButton.setOnClickListener(this);
+
+        this.minusButton = findViewById(R.id.btnMinus);
+        this.minusButton.setOnClickListener(this);
+
+        this.plusButton = findViewById(R.id.btnPlus);
+        this.plusButton.setOnClickListener(this);
+
+        this.totalTickets = findViewById(R.id.etNumberOfTickets);
 
 
         // place order
@@ -235,11 +250,47 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
             switch (view.getId()){
                 case R.id.btnBuyNow:{
                     Log.d(TAG, "onClick: Buy now Clicked");
-                    this.placeOrder();
+                    this.confirmPurchase();
+                    break;
+                }
+                case R.id.btnMinus:{
+                    this.minusNumberOfTickets();
+                    break;
+                }
+                case R.id.btnPlus:{
+                    this.plusNumberOfTickets();
                     break;
                 }
             }
         }
+    }
+
+    private void plusNumberOfTickets() {
+        Log.d(TAG, "onClick: Plus Clicked");
+        Integer tickets = Integer.parseInt(this.totalTickets.getText().toString());
+        if(tickets < 10){
+            tickets++;
+            this.totalTickets.setText(tickets.toString());
+        }
+        this.updatePurchase(tickets);
+
+    }
+
+    private void minusNumberOfTickets() {
+        Log.d(TAG, "onClick: Minus Clicked");
+        Integer tickets = Integer.parseInt(this.totalTickets.getText().toString());
+        if(tickets > 1){
+            tickets--;
+            this.totalTickets.setText(tickets.toString());
+        }
+        this.updatePurchase(tickets);
+    }
+
+    private void updatePurchase(Integer tickets) {
+        this.numberOfTickets = tickets;
+        double totalPrice = getFinalPrice(this.numberOfTickets);
+        this.purchaseTotal = String.format("%.2f", totalPrice);
+        this.purchaseButton.setText("PURCHASE FOR CA $" + this.purchaseTotal);
     }
 
     private void addToFavorite(){
@@ -274,12 +325,28 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 //        });
     }
 
+    private void confirmPurchase(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
+
+        builder.setMessage("Would you like to proceed with this purchase?");
+        builder.setTitle("Confirm Purchase!");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            this.placeOrder();
+        });
+
+        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            dialog.cancel();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     private void placeOrder(){
         Date currentTime = Calendar.getInstance().getTime();
-
-
         this.order.setEventId(curEvent.getId());
-
         this.order.setEventImageThumb(curEvent.getImage());
         this.order.setEventTitle(curEvent.getTitle());
         this.order.setEventLocation(curEvent.getAddress() + ", " + curEvent.getCity() + ", " + curEvent.getProvince() + ", " + curEvent.getPostCode());
@@ -294,34 +361,32 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.order.setOrderDate(currentTime.toString());
 
         this.ordersViewModel.addOrder(this.order);
-        Toast.makeText(EventDetailActivity.this, "Order successfully placed", Toast.LENGTH_SHORT).show();
+        this.ordersViewModel.generatedOrderId.observe(this, id -> {
+            if(this.generatedOrderId != id){
+                Intent intent = new Intent(this, PurchaseSummaryActivity.class);
+                intent.putExtra("curOrderId", id);
+                intent.putExtra("curOrder", this.order);
+                startActivity(intent);
+                this.generatedOrderId = id;
+                Log.e(TAG, "placeOrder: Nirav " + this.generatedOrderId + " " + id);
+            }
 
 
 
-        //showSuccess(); // show success and goto main screen
-    }
+        });
 
-//    private void showSuccess() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplication());
+//        LiveData<String> goid = this.ordersViewModel.generatedOrderId;
+//        goid.observe(this, (String id) ->{
+//            goid.removeObservers(this);
+//            if(goid.hasObservers())return;
+//            Log.e(TAG, "placeOrder: Nirav" + id);
+//            Intent intent = new Intent(this, PurchaseSummaryActivity.class);
+//            intent.putExtra("curOrderId", id);
+//            intent.putExtra("curOrder", this.order);
+//            startActivity(intent);
 //
-//        builder.setTitle("Success");
-//        builder.setMessage("Order placed successfully!");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which)
-//            {
-//                goToHomeScreen();
-//            }
 //        });
-//
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
-//
-//    private void goToHomeScreen() {
-//        this.finish();
-//    }
 
 
+    }
 }

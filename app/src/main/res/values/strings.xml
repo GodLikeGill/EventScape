@@ -73,6 +73,9 @@
     <string name="privacy_security"><![CDATA[PRIVACY & SECURITY]]></string>
     <string name="help_support"><![CDATA[HELP & SUPPORT]]></string>
 
+    <!-- My Events Activity -->
+    <string name="edit">Edit</string>
+
     <!-- Purchase Summary Activity-->
     <string name="title_purchase_summary">Purchase Summary</string>
     <string name="text_order_confirmation">Purchase Confirmation</string>
@@ -87,5 +90,6 @@
     <string name="text_number_of_tickets">Number of Tickets: </string>
     <string name="text_amount_paid">Amount Paid: </string>
     <string name="button_go_to_home">GO TO HOME</string>
+    <string name="add_event">Add Event</string>
 
 </resources>

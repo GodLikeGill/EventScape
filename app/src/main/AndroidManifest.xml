@@ -20,13 +20,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".activities.MyPurchasesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.MyEventsActivity"
-            android:exported="false" />
-        <activity android:name=".activities.EditProfileActivity" />
+
         <activity
             android:name=".activities.AddEventActivity"
             android:exported="false">
@@ -34,6 +28,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".activities.PurchaseSummaryActivity" />
+        <activity android:name=".activities.MyPurchasesActivity" />
+        <activity android:name=".activities.MyEventsActivity" />
+        <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.EventDetailActivity" />
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.SignUpActivity" />

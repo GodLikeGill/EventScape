@@ -62,7 +62,7 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
     private Event curEvent;
     private String purchaseTotal;
-    private Integer numberOfTickets;
+    private Integer numberOfTickets = 1;
 
     private String loggedInUserId;
     private String loggedInUserEmail;

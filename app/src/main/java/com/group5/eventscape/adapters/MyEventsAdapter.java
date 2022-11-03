@@ -30,7 +30,7 @@ public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.ViewHo
     @NonNull
     @Override
     public MyEventsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row_layout_my_events, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,10 +39,8 @@ public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.ViewHo
         holder.title.setText(events.get(position).getTitle());
         holder.location.setText(events.get(position).getAddress());
         holder.date.setText(events.get(position).getDate());
-        Picasso.get().load(events.get(position).getImage()).centerCrop()
-                .resize(120, 120)
-                .transform(new CropCircleTransformation())
-                .onlyScaleDown().into(holder.image);
+        holder.price.setText("Price: $" + events.get(position).getPrice());
+        Picasso.get().load(events.get(position).getImage()).into(holder.image);
     }
 
     @Override
@@ -56,15 +54,17 @@ public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.ViewHo
         TextView title;
         TextView location;
         TextView date;
+        TextView price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             context = itemView.getContext();
-            image = itemView.findViewById(R.id.imgThumb);
-            title = itemView.findViewById(R.id.tvEventTitle);
-            location = itemView.findViewById(R.id.tvLocation);
-            date = itemView.findViewById(R.id.tvEventDateTime);
+            image = itemView.findViewById(R.id.circleMyEventsPicture);
+            title = itemView.findViewById(R.id.tvMyEventsTitle);
+            location = itemView.findViewById(R.id.tvMyEventsLocation);
+            date = itemView.findViewById(R.id.tvMyEventsDateTime);
+            price = itemView.findViewById(R.id.tvMyEventsPrice);
         }
     }
 }

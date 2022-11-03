@@ -25,6 +25,7 @@ import com.group5.eventscape.activities.EditProfileActivity;
 import com.group5.eventscape.activities.LoginActivity;
 import com.group5.eventscape.activities.MyEventsActivity;
 import com.group5.eventscape.activities.MyPurchasesActivity;
+import com.group5.eventscape.activities.SettingActivity;
 import com.group5.eventscape.models.User;
 import com.group5.eventscape.viewmodels.UserViewModel;
 import com.squareup.picasso.Picasso;
@@ -42,6 +43,7 @@ public class ProfileFragment extends Fragment {
     LinearLayout myPurchases;
     UserViewModel userViewModel;
     CircleImageView image;
+    LinearLayout settings;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -64,6 +66,7 @@ public class ProfileFragment extends Fragment {
         myPurchases = view.findViewById(R.id.llMyPurchases);
         image = view.findViewById(R.id.circleProfilePicture);
         myEvents = view.findViewById(R.id.llMyEvents);
+        settings = view.findViewById(R.id.llSettings);
 
         userViewModel = UserViewModel.getInstance(getActivity().getApplication());
 
@@ -79,6 +82,7 @@ public class ProfileFragment extends Fragment {
 
         myEvents.setOnClickListener(v -> startActivity(new Intent(getContext(), MyEventsActivity.class)));
         myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchasesActivity.class)));
+        settings.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingActivity.class)));
         editProfile.setOnClickListener(v -> startActivity(new Intent(getContext(), EditProfileActivity.class)));
     }
 

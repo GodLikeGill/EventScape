@@ -50,6 +50,8 @@
     <string name="profile">Profile</string>
 
     <!-- Event Detail Activity-->
+    <string name="plusButton">+</string>
+    <string name="minusButton">-</string>
     <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
     <string name="addToFavorite">Favorite</string>
 
@@ -68,4 +70,26 @@
     <!-- Edit Profile Activity -->
     <string name="save_profile">Save Profile</string>
     <string name="my_events">My Events</string>
+    <string name="privacy_security"><![CDATA[PRIVACY & SECURITY]]></string>
+    <string name="help_support"><![CDATA[HELP & SUPPORT]]></string>
+
+    <!-- My Events Activity -->
+    <string name="edit">Edit</string>
+
+    <!-- Purchase Summary Activity-->
+    <string name="title_purchase_summary">Purchase Summary</string>
+    <string name="text_order_confirmation">Purchase Confirmation</string>
+    <string name="text_an_email_with_a_receipt_has_been_sent_to_your_email">An email with a receipt has been sent to your registered email address</string>
+    <string name="text_purchase_details">Purchase Detail</string>
+    <string name="text_purchase_id">Purchase ID: </string>
+    <string name="text_event">Event Name: </string>
+    <string name="text_event_date">Event Date: </string>
+    <string name="text_event_time">Event Time: </string>
+    <string name="text_event_location">Event Location: </string>
+    <string name="text_ticket_price">Ticket Price: </string>
+    <string name="text_number_of_tickets">Number of Tickets: </string>
+    <string name="text_amount_paid">Amount Paid: </string>
+    <string name="button_go_to_home">GO TO HOME</string>
+    <string name="add_event">Add Event</string>
+
 </resources>

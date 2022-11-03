@@ -36,6 +36,7 @@ public class OrdersRepository {
 
     public MutableLiveData<List<Orders>> allOrders = new MutableLiveData<>();
     public MutableLiveData<List<Orders>> userOrders = new MutableLiveData<>();
+    public MutableLiveData<String> generatedOrderId = new MutableLiveData<>();
 
     public OrdersRepository() {
         db = FirebaseFirestore.getInstance();
@@ -104,7 +105,8 @@ public class OrdersRepository {
             data.put(FIELD_ORDER_DATE, order.getOrderDate());
 
             db.collection(COLLECTION_ORDERS).add(data).addOnSuccessListener(documentReference -> {
-                Log.d("TAG", "addOrder: Order created successfully");
+                Log.d("TAG", "addOrder: Order created successfully with order id: " + documentReference.getId());
+                generatedOrderId.postValue(documentReference.getId());
             }).addOnFailureListener(e -> {
                 Log.e("TAG", "onFailure: Error while creating orders " + e.getLocalizedMessage());
             });

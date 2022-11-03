@@ -14,13 +14,14 @@ import java.util.List;
 public class OrdersViewModel extends AndroidViewModel {
     private final OrdersRepository repository = new OrdersRepository();
     private static OrdersViewModel instance;
+
     public MutableLiveData<List<Orders>> allOrders;
     public MutableLiveData<List<Orders>> userOrders;
+    public MutableLiveData<String> generatedOrderId = new MutableLiveData<>();
 
     public OrdersViewModel(@NonNull Application application){
         super(application);
     }
-
 
     public static OrdersViewModel getInstance(Application application){
         if (instance == null){
@@ -33,7 +34,10 @@ public class OrdersViewModel extends AndroidViewModel {
         return this.repository;
     }
 
-    public void addOrder(Orders order){ this.repository.addOrder(order); }
+    public void addOrder(Orders order){
+        this.repository.addOrder(order);
+        this.generatedOrderId = this.repository.generatedOrderId;
+    }
 
     public void getAllOrders(){
         this.repository.getAllOrders();
@@ -44,6 +48,4 @@ public class OrdersViewModel extends AndroidViewModel {
         this.repository.getOrdersOfCurUser(userEmail);
         this.userOrders = this.repository.userOrders;
     }
-
-
 }

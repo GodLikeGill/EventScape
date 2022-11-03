@@ -14,8 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventScape.Dark">
         <activity
-            android:name="com.group5.eventscape.activities.PurchaseSummaryActivity"
-            android:exported="false" />
+            android:name=".activities.SettingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activities.MyPurchasesActivity"
             android:exported="false" />

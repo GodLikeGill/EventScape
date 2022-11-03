@@ -50,10 +50,10 @@
     <string name="profile">Profile</string>
 
     <!-- Event Detail Activity-->
-    <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
-    <string name="addToFavorite">Favorite</string>
     <string name="plusButton">+</string>
     <string name="minusButton">-</string>
+    <string name="btn_lbl_buy_ticket">PURCHASE FOR $39.99</string>
+    <string name="addToFavorite">Favorite</string>
 
     <!-- Profile Fragment -->
     <string name="my_profile">My Profile</string>
@@ -70,6 +70,8 @@
     <!-- Edit Profile Activity -->
     <string name="save_profile">Save Profile</string>
     <string name="my_events">My Events</string>
+    <string name="privacy_security"><![CDATA[PRIVACY & SECURITY]]></string>
+    <string name="help_support"><![CDATA[HELP & SUPPORT]]></string>
 
     <!-- Purchase Summary Activity-->
     <string name="title_purchase_summary">Purchase Summary</string>

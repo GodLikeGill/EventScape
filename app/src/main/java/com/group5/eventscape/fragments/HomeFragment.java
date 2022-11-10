@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment implements OnRowClicked {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_home, container, false);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
@@ -128,9 +127,6 @@ public class HomeFragment extends Fragment implements OnRowClicked {
             if(item.getTitle().toLowerCase().contains(searchString.toLowerCase())){
                 filteredEventList.add(item);
             }
-//            if(item.getTask().toLowerCase().contains(searchString.toLowerCase())){
-//                filteredTaskerList.add(item);
-//            }
         }
         adapter.filteredList(filteredEventList);
     }
@@ -154,7 +150,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println("onResume");
+        System.out.println("onPause");
         this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
     }
 
@@ -169,7 +165,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
     @Override
     public void onStop() {
         super.onStop();
-        System.out.println("onResume");
+        System.out.println("onStop");
         this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
     }
 
@@ -206,7 +202,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
                     Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
 
                     if (obtainedAddress != null){
-//                        binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
+                        //binding.tvCurrentLocation.setText(obtainedAddress.getAddressLine(0));
                         //appendDistanceToUser(lastLocation);
                     }else{
                         binding.tvCurrentLocation.setText(lastLocation.toString());

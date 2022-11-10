@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.group5.eventscape.models.Event;
 import com.group5.eventscape.models.Favorite;
 import com.group5.eventscape.models.Orders;
@@ -63,26 +64,32 @@ public class OrdersRepository {
     }
 
     public void getOrdersOfCurUser(String userEmail) {
+        Log.e("TAG", "getOrdersOfCurUser: start" );
         try {
+            Log.e("TAG", "getOrdersOfCurUser: try" );
             db.collection(COLLECTION_ORDERS)
                     .whereEqualTo("userEmail", userEmail)
+                    //.orderBy("orderDate", Query.Direction.DESCENDING)
+                    //.orderBy("eventTitle", Query.Direction.DESCENDING)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
                         List<Orders> ordersList = new ArrayList<>();
                         if (queryDocumentSnapshots.isEmpty()) {
-                            Log.e("TAG", "getUserOrders: No data retrieved.");
+                            Log.e("TAG", "getOrdersOfCurUser: No data retrieved.");
                         } else {
                             for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
                                 Orders orders = documentChange.getDocument().toObject(Orders.class);
                                 ordersList.add(orders);
-                                Log.d("TAG", "getUserOrders: " + orders.getId());
+                                Log.d("TAG", "getOrdersOfCurUser: " + orders.getEventId());
                             }
                         }
                         userOrders.postValue(ordersList);
-            });
+                    });
         } catch (Exception e) {
-            Log.e("TAG", "getAllOrders: " + e.getLocalizedMessage());
+            Log.e("TAG", "getOrdersOfCurUser: catch" );
+            Log.e("TAG", "getOrdersOfCurUser: " + e.getLocalizedMessage());
         }
+        Log.e("TAG", "getOrdersOfCurUser: end" );
     }
 
     public void addOrder(Orders order) {

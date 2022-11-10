@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvLocation" />
 
     <TextView
-        android:id="@+id/tvNumberOfTickets"
+        android:id="@+id/tvEventDate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -59,6 +59,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/imgThumb"
         app:layout_constraintTop_toBottomOf="@id/tvPurchaseDateAndTime" />
+
+    <TextView
+        android:id="@+id/tvNumberOfTickets"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/gray"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imgThumb"
+        app:layout_constraintTop_toBottomOf="@id/tvEventDate" />
 
     <TextView
         android:id="@+id/tvTicketPrice"
@@ -82,16 +93,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgThumb"
         app:layout_constraintTop_toBottomOf="@id/tvTicketPrice" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_distance"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:textColor="@color/prim"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

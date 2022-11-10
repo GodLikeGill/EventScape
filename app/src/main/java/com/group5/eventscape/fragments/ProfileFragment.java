@@ -22,6 +22,7 @@ import com.group5.eventscape.R;
 import com.group5.eventscape.activities.EditProfileActivity;
 import com.group5.eventscape.activities.LoginActivity;
 import com.group5.eventscape.activities.MyEventsActivity;
+import com.group5.eventscape.activities.MyPurchaseTabsActivity;
 import com.group5.eventscape.activities.MyPurchasesActivity;
 import com.group5.eventscape.activities.SettingsActivity;
 import com.group5.eventscape.models.User;
@@ -79,7 +80,8 @@ public class ProfileFragment extends Fragment {
         });
 
         myEvents.setOnClickListener(v -> startActivity(new Intent(getContext(), MyEventsActivity.class)));
-        myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchasesActivity.class)));
+        //myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchasesActivity.class)));
+        myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchaseTabsActivity.class)));
         settings.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingsActivity.class)));
         editProfile.setOnClickListener(v -> startActivity(new Intent(getContext(), EditProfileActivity.class)));
     }

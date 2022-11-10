@@ -185,14 +185,39 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.favoriteViewModel.getFavoriteForCurrentEvent(curEvent.getId());
         this.favoriteViewModel.favoriteEvent.observe(this, fav -> {
             favorite = fav;
-            Log.e(TAG, "NNNK: " + fav);
+            Log.e(TAG, "NNNK: " + fav.getEventId());
             this.isFavoriteEvent = true;
         });
 
+        this.dateToMill();
 
-        //this.checkFavorite();
+        this.checkFavorite();
 
     }
+
+    private void dateToMill() {
+        String myDate = "01/02/2023";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(myDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long millis = date.getTime();
+
+        Log.e(TAG, "checkDate: " + myDate + " in milliseconds: " + millis);
+
+        this.millToDate(millis);
+    }
+
+    private void millToDate(long millis) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = formatter.format(new Date(millis));
+        Log.e(TAG, "millToDate: " + millis + " in date: " + dateString);
+    }
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
         this.numberOfTickets = Integer.parseInt(this.spinner.getSelectedItem().toString());
@@ -211,6 +236,13 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         this.toolbarMenu = menu;
+
+        if(isFavoriteEvent){
+            this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_filled_24));
+        }
+        else{
+            this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_24));
+        }
         return true;
     }
 
@@ -219,15 +251,6 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.actionFavorite:
-                if(this.isFavoriteEvent){
-                    Log.e(TAG, "onOptionsItemSelected: it is not favorite");
-                    this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_24));
-                }
-                else{
-                    Log.e(TAG, "onOptionsItemSelected: it is favorite");
-                    this.toolbarMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_filled_24));
-
-                }
                 this.addToFavorite();
                 return true;
 
@@ -294,35 +317,38 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void addToFavorite(){
-        //toggleFavorite();
+        toggleFavorite();
         this.favorite.setEventId(curEvent.getId());
         this.favoriteViewModel.checkForFavorite(this.favorite);
-        //this.favoriteViewModel.addToFavorite(this.favorite);
-        Toast.makeText(EventDetailActivity.this, "Added to Favorites", Toast.LENGTH_LONG).show();
     }
 
     private void toggleFavorite() {
+        Log.e(TAG, "toggleFavorite: " + isFavoriteEvent);
         if(isFavoriteEvent){
-            this.isFavoriteEvent = false;
+            isFavoriteEvent = false;
+            supportInvalidateOptionsMenu();
         }
         else{
-            this.isFavoriteEvent = true;
+            isFavoriteEvent = true;
+            supportInvalidateOptionsMenu();
         }
+    }
 
-
-
-
-//        this.favoriteViewModel.isFavorite.observe(this, new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean aBoolean) {
-//                if(aBoolean){
-//                    Log.e(TAG, "checkFavorite: This event is in favorite list");
-//                }
-//                else{
-//                    Log.e(TAG, "checkFavorite: This event is not in favorite list");
-//                }
-//            }
-//        });
+    private void checkFavorite() {
+        this.favoriteViewModel.isFavoriteAtLoad.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    isFavoriteEvent = true;
+                    supportInvalidateOptionsMenu();
+                }
+                else{
+                    isFavoriteEvent = false;
+                    supportInvalidateOptionsMenu();
+                }
+                Log.e(TAG, "onOptionsItemSelected: " + isFavoriteEvent);
+            }
+        });
     }
 
     private void confirmPurchase(){
@@ -370,23 +396,6 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
                 this.generatedOrderId = id;
                 Log.e(TAG, "placeOrder: Nirav " + this.generatedOrderId + " " + id);
             }
-
-
-
         });
-
-//        LiveData<String> goid = this.ordersViewModel.generatedOrderId;
-//        goid.observe(this, (String id) ->{
-//            goid.removeObservers(this);
-//            if(goid.hasObservers())return;
-//            Log.e(TAG, "placeOrder: Nirav" + id);
-//            Intent intent = new Intent(this, PurchaseSummaryActivity.class);
-//            intent.putExtra("curOrderId", id);
-//            intent.putExtra("curOrder", this.order);
-//            startActivity(intent);
-//
-//        });
-
-
     }
 }

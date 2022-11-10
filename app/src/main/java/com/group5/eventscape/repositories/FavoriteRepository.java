@@ -38,6 +38,7 @@ public class FavoriteRepository {
 
     public MutableLiveData<Favorite> favoriteEvent = new MutableLiveData<>();
     public MutableLiveData<Boolean> isFavorite = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isFavoriteAtLoad = new MutableLiveData<>();
     public MutableLiveData<List<Favorite>> allFav = new MutableLiveData<>();
 
     public FavoriteRepository() {
@@ -87,7 +88,7 @@ public class FavoriteRepository {
                         Log.d("TAG", "getAllListings FAv: " + favorite.getEventId());
                     }
                 }
-                        allFav.postValue(favoriteList);
+                allFav.postValue(favoriteList);
             });
         } catch (Exception e) {
             Log.e("TAG", "getAllListings: " + e.getLocalizedMessage());
@@ -105,13 +106,14 @@ public class FavoriteRepository {
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
                             favoriteEvent.postValue(documentSnapshot.toObject(Favorite.class));
-
+                            this.isFavoriteAtLoad.postValue(true);
                         } else {
+                            this.isFavoriteAtLoad.postValue(false);
                             Log.e("TAG", "getFavorite: No data retrieved.");
                         }
                     }).addOnFailureListener(e -> {
-                        Log.e("TAG", "getFavorite: " + e.getLocalizedMessage());
-                });
+                Log.e("TAG", "getFavorite: " + e.getLocalizedMessage());
+            });
         } catch (Exception e) {
             Log.e("TAG", "getFavorite: " + e.getLocalizedMessage());
         }

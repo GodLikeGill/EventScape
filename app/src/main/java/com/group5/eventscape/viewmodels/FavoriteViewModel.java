@@ -18,6 +18,7 @@ public class FavoriteViewModel extends AndroidViewModel {
     private static FavoriteViewModel instance;
 
     public MutableLiveData<Boolean> isFavorite = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isFavoriteAtLoad = new MutableLiveData<>();
     public MutableLiveData<Favorite> favoriteEvent;
     public MutableLiveData<List<Favorite>> allFav;
 
@@ -42,12 +43,11 @@ public class FavoriteViewModel extends AndroidViewModel {
     public void getFavoriteForCurrentEvent(String id) {
         this.repository.getFavoriteForCurrentEvent(id);
         this.favoriteEvent = this.repository.favoriteEvent;
+        this.isFavoriteAtLoad = this.repository.isFavoriteAtLoad;
     }
 
     public void checkForFavorite(Favorite favorite){
         this.repository.checkForFavorite(favorite);
         this.isFavorite = this.repository.isFavorite;
-
     }
-
 }

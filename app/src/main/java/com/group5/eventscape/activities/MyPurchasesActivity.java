@@ -79,6 +79,6 @@ public class MyPurchasesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        adapter.stopListening();
+        //adapter.stopListening();
     }
 }

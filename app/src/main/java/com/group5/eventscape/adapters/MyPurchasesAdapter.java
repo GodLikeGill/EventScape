@@ -40,13 +40,14 @@ public class MyPurchasesAdapter extends RecyclerView.Adapter<MyPurchasesAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get().load(orders.get(position).getEventImageThumb()).centerCrop()
-            .resize(120, 120)
-            .transform(new CropCircleTransformation())
-            .onlyScaleDown().into(holder.image);
+                .resize(120, 120)
+                .transform(new CropCircleTransformation())
+                .onlyScaleDown().into(holder.image);
 
         holder.title.setText(orders.get(position).getEventTitle());
         holder.location.setText(orders.get(position).getEventLocation());
         holder.orderDateTime.setText("Order date: " + parseDateToddMMyyyy(orders.get(position).getOrderDate()));
+        holder.eventDate.setText("Event date: " + orders.get(position).getEventDate());
         holder.numberOfTickets.setText("Number of tickets: " + orders.get(position).getNumberOfTickets());
         holder.ticketPrice.setText("Ticket price: CA $" + String.format("%.2f", Double.parseDouble(orders.get(position).getTicketPrice()))  );
         holder.totalPurchasePrice.setText("Total price: CA $" + orders.get(position).getTotalOrderPrice());
@@ -64,6 +65,7 @@ public class MyPurchasesAdapter extends RecyclerView.Adapter<MyPurchasesAdapter.
         TextView title;
         TextView location;
         TextView orderDateTime;
+        TextView eventDate;
         TextView numberOfTickets;
         TextView ticketPrice;
         TextView totalPurchasePrice;
@@ -76,6 +78,7 @@ public class MyPurchasesAdapter extends RecyclerView.Adapter<MyPurchasesAdapter.
             title = itemView.findViewById(R.id.tvEventTitle);
             location = itemView.findViewById(R.id.tvLocation);
             orderDateTime = itemView.findViewById(R.id.tvPurchaseDateAndTime);
+            eventDate = itemView.findViewById(R.id.tvEventDate);
             numberOfTickets = itemView.findViewById(R.id.tvNumberOfTickets);
             ticketPrice = itemView.findViewById(R.id.tvTicketPrice);
             totalPurchasePrice = itemView.findViewById(R.id.tvTotalPurchasePrice);

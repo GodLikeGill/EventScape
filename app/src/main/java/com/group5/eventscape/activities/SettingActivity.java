@@ -3,6 +3,7 @@ package com.group5.eventscape.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
         cvPriSec.setOnClickListener(v -> Toast.makeText(SettingActivity.this, "Privacy & Security Clicked", Toast.LENGTH_LONG).show());
         cvPayments.setOnClickListener(v -> Toast.makeText(SettingActivity.this, "Payments Clicked", Toast.LENGTH_LONG).show());
         cvHelpSup.setOnClickListener(v -> Toast.makeText(SettingActivity.this, "Help & Support Clicked", Toast.LENGTH_LONG).show());
-        cvAboutUs.setOnClickListener(v -> Toast.makeText(SettingActivity.this, "About Us Clicked", Toast.LENGTH_LONG).show());
+        cvAboutUs.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AboutUsActivity.class)));
 
         back.setOnClickListener(v -> finish());
     }

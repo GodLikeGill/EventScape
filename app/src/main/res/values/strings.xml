@@ -70,8 +70,7 @@
     <!-- Edit Profile Activity -->
     <string name="save_profile">Save Profile</string>
     <string name="my_events">My Events</string>
-    <string name="privacy_security"><![CDATA[PRIVACY & SECURITY]]></string>
-    <string name="help_support"><![CDATA[HELP & SUPPORT]]></string>
+
 
     <!-- My Events Activity -->
     <string name="edit">Edit</string>
@@ -92,4 +91,18 @@
     <string name="button_go_to_home">GO TO HOME</string>
     <string name="add_event">Add Event</string>
 
+    <!-- Settings Activity -->
+    <string name="privacy_policy">PRIVACY POLICY</string>
+    <string name="help_support">HELP AND SUPPORT</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="payments">Payments</string>
+
+    <!-- Payments Activity -->
+    <string name="your_balance">Your Balance</string>
+    <string name="add_payment_method">Add Payment Method</string>
+    <string name="card_number">Card Number</string>
+    <string name="name_on_card">Name on Card</string>
+    <string name="cvv">CVV</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="add_payment">Add Payment</string>
 </resources>

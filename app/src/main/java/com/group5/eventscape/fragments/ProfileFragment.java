@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.group5.eventscape.R;
 import com.group5.eventscape.activities.EditProfileActivity;
 import com.group5.eventscape.activities.LoginActivity;
 import com.group5.eventscape.activities.MyEventsActivity;
 import com.group5.eventscape.activities.MyPurchasesActivity;
-import com.group5.eventscape.activities.SettingActivity;
+import com.group5.eventscape.activities.SettingsActivity;
 import com.group5.eventscape.models.User;
 import com.group5.eventscape.viewmodels.UserViewModel;
 import com.squareup.picasso.Picasso;
@@ -82,7 +80,7 @@ public class ProfileFragment extends Fragment {
 
         myEvents.setOnClickListener(v -> startActivity(new Intent(getContext(), MyEventsActivity.class)));
         myPurchases.setOnClickListener(v -> startActivity(new Intent(getContext(), MyPurchasesActivity.class)));
-        settings.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingActivity.class)));
+        settings.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingsActivity.class)));
         editProfile.setOnClickListener(v -> startActivity(new Intent(getContext(), EditProfileActivity.class)));
     }
 

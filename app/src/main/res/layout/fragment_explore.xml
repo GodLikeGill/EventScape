@@ -5,19 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ExploreFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/prim"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvMyProfile"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarExplore"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/explore"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:background="@color/prim"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvMyProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/explore"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 </FrameLayout>

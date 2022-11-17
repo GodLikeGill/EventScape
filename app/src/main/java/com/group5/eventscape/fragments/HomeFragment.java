@@ -152,6 +152,8 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         super.onPause();
         System.out.println("onPause");
         this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
+        this.getAllEvents(getView());
+        //this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -159,7 +161,8 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         super.onResume();
         System.out.println("onResume");
         this.locationHelper.getLocationUpdates(getView().getContext(), this.locationCallback);
-        this.adapter.notifyDataSetChanged();
+        this.getAllEvents(getView());
+        //this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -167,6 +170,8 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         super.onStop();
         System.out.println("onStop");
         this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
+        this.getAllEvents(getView());
+        //this.adapter.notifyDataSetChanged();
     }
 
     private void getAllEvents(View view){

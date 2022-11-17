@@ -15,7 +15,7 @@ public class Event implements Parcelable{
     private String address;
     private String city;
     private String province;
-    private String postCode;
+    private String postcode;
     private String longitude;
     private String latitude;
     private String date;
@@ -40,7 +40,7 @@ public class Event implements Parcelable{
         this.longitude = longitude;
         this.city = city;
         this.province = province;
-        this.postCode = postCode;
+        this.postcode = postCode;
         this.date = date;
         this.date2 = date2;
         this.time = time;
@@ -61,7 +61,7 @@ public class Event implements Parcelable{
         latitude = in.readString();
         city = in.readString();
         province = in.readString();
-        postCode = in.readString();
+        postcode = in.readString();
         date = in.readString();
         date2 = in.readString();
         time = in.readString();
@@ -178,11 +178,11 @@ public class Event implements Parcelable{
     }
 
     public String getPostCode() {
-        return postCode;
+        return postcode;
     }
 
     public void setPostCode(String postCode) {
-        this.postCode = postCode;
+        this.postcode = postCode;
     }
 
     public String getDate() {
@@ -244,7 +244,7 @@ public class Event implements Parcelable{
         dest.writeString(latitude);
         dest.writeString(city);
         dest.writeString(province);
-        dest.writeString(postCode);
+        dest.writeString(postcode);
         dest.writeString(date);
         dest.writeString(date2);
         dest.writeString(time);

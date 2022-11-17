@@ -33,7 +33,7 @@ public class LocationHelper {
     public boolean locationPermissionGranted = false;
     public final int REQUEST_CODE_LOCATION = 101;
     private FusedLocationProviderClient fusedLocationProviderClient = null;
-    //    Location myLocation;
+    Location myLocationOnce;
     MutableLiveData<Location> myLocation = new MutableLiveData<>();
     private LocationRequest locationRequest;
 
@@ -74,7 +74,6 @@ public class LocationHelper {
         return this.fusedLocationProviderClient;
     }
 
-    //    public Location getLastLocation(Context context){
     public MutableLiveData<Location> getLastLocation(Context context){
         if (this.locationPermissionGranted){
             Log.d(TAG, "getLastLocation: Permission is granted...obtaining last location now");
@@ -116,6 +115,47 @@ public class LocationHelper {
             return null;
         }
     }
+
+
+    public Location getLastLocationOnce(Context context){
+        if (this.locationPermissionGranted){
+            Log.e(TAG, "getLastLocationOnce: Permission is granted...obtaining last location now");
+
+            try{
+                this.getFusedLocationProviderClient(context)
+                        .getLastLocation()
+                        .addOnSuccessListener(new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                if (location != null){
+                                    myLocationOnce = new Location(location);
+                                    Log.e(TAG, "getLastLocationOnce: Kumbhare not null" );
+                                    Log.e(TAG, "onSuccess: Last location obtained Lat : " + myLocationOnce.getLatitude() + " Lng : " + myLocationOnce.getLongitude() );
+                                }else{
+                                    Log.e(TAG, "getLastLocationOnce: Kumbhare null" );
+                                    Log.d(TAG, "onSuccess: Unable to access last location");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "onFailure: Failed to get the last location" + e.getLocalizedMessage() );
+                            }
+                        });
+            }catch (Exception ex){
+                Log.d(TAG, "getLastLocation: Exception occurred while fetching last location " + ex.getLocalizedMessage() );
+                return  null;
+            }
+            return this.myLocationOnce;
+        }else{
+            Log.d(TAG, "getLastLocation: Location permission not granted");
+            requestLocationPermission(context);
+            return null;
+        }
+    }
+
+
 
 
     public Address performForwardGeocoding(Context context, Location loc){

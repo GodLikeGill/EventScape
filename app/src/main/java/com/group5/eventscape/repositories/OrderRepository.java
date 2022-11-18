@@ -6,17 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.group5.eventscape.models.Event;
-import com.group5.eventscape.models.Favorite;
-import com.group5.eventscape.models.Orders;
+import com.group5.eventscape.models.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrdersRepository {
+public class OrderRepository {
     private final FirebaseFirestore db;
     private final String COLLECTION_ORDERS = "Orders";
     private final String FIELD_ID = "id";
@@ -35,23 +32,23 @@ public class OrdersRepository {
     private final String FIELD_TOTAL_ORDER_PRICE = "totalOrderPrice";
     private final String FIELD_ORDER_DATE = "orderDate";
 
-    public MutableLiveData<List<Orders>> allOrders = new MutableLiveData<>();
-    public MutableLiveData<List<Orders>> userOrders = new MutableLiveData<>();
+    public MutableLiveData<List<Order>> allOrders = new MutableLiveData<>();
+    public MutableLiveData<List<Order>> userOrders = new MutableLiveData<>();
     public MutableLiveData<String> generatedOrderId = new MutableLiveData<>();
 
-    public OrdersRepository() {
+    public OrderRepository() {
         db = FirebaseFirestore.getInstance();
     }
 
     public void getAllOrders() {
         try {
             db.collection(COLLECTION_ORDERS).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                List<Orders> ordersList = new ArrayList<>();
+                List<Order> ordersList = new ArrayList<>();
                 if (queryDocumentSnapshots.isEmpty()) {
                     Log.e("TAG", "getAllOrders: No data retrieved.");
                 } else {
                     for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
-                        Orders orders = documentChange.getDocument().toObject(Orders.class);
+                        Order orders = documentChange.getDocument().toObject(Order.class);
                         ordersList.add(orders);
                         Log.d("TAG", "getAllOrders: " + orders.getId());
                     }
@@ -73,12 +70,12 @@ public class OrdersRepository {
                     //.orderBy("eventTitle", Query.Direction.DESCENDING)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
-                        List<Orders> ordersList = new ArrayList<>();
+                        List<Order> ordersList = new ArrayList<>();
                         if (queryDocumentSnapshots.isEmpty()) {
                             Log.e("TAG", "getOrdersOfCurUser: No data retrieved.");
                         } else {
                             for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
-                                Orders orders = documentChange.getDocument().toObject(Orders.class);
+                                Order orders = documentChange.getDocument().toObject(Order.class);
                                 ordersList.add(orders);
                                 Log.d("TAG", "getOrdersOfCurUser: " + orders.getEventId());
                             }
@@ -92,7 +89,7 @@ public class OrdersRepository {
         Log.e("TAG", "getOrdersOfCurUser: end" );
     }
 
-    public void addOrder(Orders order) {
+    public void addOrder(Order order) {
         try {
             Map<String, Object> data = new HashMap<>();
 //            data.put(FIELD_ID, order.getId());

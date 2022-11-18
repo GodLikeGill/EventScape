@@ -6,35 +6,35 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.group5.eventscape.models.Orders;
-import com.group5.eventscape.repositories.OrdersRepository;
+import com.group5.eventscape.models.Order;
+import com.group5.eventscape.repositories.OrderRepository;
 
 import java.util.List;
 
-public class OrdersViewModel extends AndroidViewModel {
-    private final OrdersRepository repository = new OrdersRepository();
-    private static OrdersViewModel instance;
+public class OrderViewModel extends AndroidViewModel {
+    private final OrderRepository repository = new OrderRepository();
+    private static OrderViewModel instance;
 
-    public MutableLiveData<List<Orders>> allOrders;
-    public MutableLiveData<List<Orders>> userOrders;
+    public MutableLiveData<List<Order>> allOrders;
+    public MutableLiveData<List<Order>> userOrders;
     public MutableLiveData<String> generatedOrderId = new MutableLiveData<>();
 
-    public OrdersViewModel(@NonNull Application application){
+    public OrderViewModel(@NonNull Application application){
         super(application);
     }
 
-    public static OrdersViewModel getInstance(Application application){
+    public static OrderViewModel getInstance(Application application){
         if (instance == null){
-            instance = new OrdersViewModel(application);
+            instance = new OrderViewModel(application);
         }
         return instance;
     }
 
-    public OrdersRepository getOrdersRepository(){
+    public OrderRepository getOrdersRepository(){
         return this.repository;
     }
 
-    public void addOrder(Orders order){
+    public void addOrder(Order order){
         this.repository.addOrder(order);
         this.generatedOrderId = this.repository.generatedOrderId;
     }

@@ -3,7 +3,7 @@ package com.group5.eventscape.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Orders implements Parcelable {
+public class Order implements Parcelable {
     private String id;
     private String eventId;
     private String eventImageThumb;
@@ -18,10 +18,10 @@ public class Orders implements Parcelable {
     private String totalOrderPrice;
     private String orderDate;
 
-    public Orders(){
+    public Order(){
     }
 
-    public Orders(String id, String eventId, String eventImageThumb, String eventTitle, String eventLocation, String eventDate, String eventTime, String userId, String userEmail, String numberOfTickets, String ticketPrice, String totalOrderPrice, String orderDate) {
+    public Order(String id, String eventId, String eventImageThumb, String eventTitle, String eventLocation, String eventDate, String eventTime, String userId, String userEmail, String numberOfTickets, String ticketPrice, String totalOrderPrice, String orderDate) {
         this.id = id;
         this.eventId = eventId;
 
@@ -39,7 +39,7 @@ public class Orders implements Parcelable {
         this.orderDate = orderDate;
     }
 
-    protected Orders(Parcel in) {
+    protected Order(Parcel in) {
         id = in.readString();
         eventId = in.readString();
 
@@ -161,15 +161,15 @@ public class Orders implements Parcelable {
         this.orderDate = orderDate;
     }
 
-    public static final Creator<Orders> CREATOR = new Creator<Orders>() {
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
         @Override
-        public Orders createFromParcel(Parcel in) {
-            return new Orders(in);
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
         }
 
         @Override
-        public Orders[] newArray(int size) {
-            return new Orders[size];
+        public Order[] newArray(int size) {
+            return new Order[size];
         }
     };
 

@@ -13,12 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EventScape.Dark">
+        <activity
+            android:name="com.group5.eventscape.activities.PurchaseDetailActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDhbKEyhFGHvQK2853TXzbWZ5f_IKksBB8" />
-        <activity
-            android:name="com.group5.eventscape.activities.MyPurchaseTabsActivity"
-            android:exported="false" />
+
         <activity
             android:name="com.group5.eventscape.activities.PaymentsActivity"
             android:exported="false" />

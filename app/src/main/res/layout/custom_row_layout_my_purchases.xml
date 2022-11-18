@@ -1,97 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:actionBarNavMode="list">
+    android:background="@drawable/rect"
+    android:layout_marginBottom="15dp">
 
-    <ImageView
-        android:id="@+id/imgThumb"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:foreground="@drawable/border_image"
-        android:scaleType="fitCenter"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleMyPurchasesPicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/profile_picture"
+        app:civ_border_color="@color/prim"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvEventTitle"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvEventTitle" />
-
-    <TextView
-        android:id="@+id/tvPurchaseDateAndTime"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvLocation" />
-
-    <TextView
-        android:id="@+id/tvEventDate"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvPurchaseDateAndTime" />
-
-    <TextView
-        android:id="@+id/tvNumberOfTickets"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvEventDate" />
-
-    <TextView
-        android:id="@+id/tvTicketPrice"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvNumberOfTickets" />
-
-    <TextView
-        android:id="@+id/tvTotalPurchasePrice"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgThumb"
-        app:layout_constraintTop_toBottomOf="@id/tvTicketPrice" />
+        app:layout_constraintEnd_toStartOf="@+id/btnMyTickets"
+        app:layout_constraintStart_toEndOf="@+id/circleMyPurchasesPicture"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvMyPurchasesTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvMyPurchasesLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMyPurchasesDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMyPurchasesEventDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMyPurchasesNumberOfTickets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMyPurchasesTicketPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMyPurchasesTotalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnMyTickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Tickets"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

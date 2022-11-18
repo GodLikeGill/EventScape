@@ -3,19 +3,25 @@ package com.group5.eventscape.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 import com.group5.eventscape.R;
-import com.group5.eventscape.models.Event;
-import com.group5.eventscape.models.Orders;
+import com.group5.eventscape.adapters.PurchaseDetailAdapter;
+import com.group5.eventscape.models.Order;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +31,7 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
     private String TAG = this.getClass().getCanonicalName();
 
     private String curOrderId;
-    private Orders curOrder;
+    private Order curOrder;
 
     private TextView purchaseID;
     private TextView eventTitle;
@@ -36,6 +42,8 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
     private TextView numberOfTicket;
     private TextView amountPaid;
     private Button goToHome;
+
+    private ImageView barcodeImage;
 
 
     @Override
@@ -56,7 +64,7 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
 
         //get purchase data
         this.curOrderId = (String) getIntent().getStringExtra("curOrderId");
-        this.curOrder = (Orders) getIntent().getParcelableExtra("curOrder");
+        this.curOrder = (Order) getIntent().getParcelableExtra("curOrder");
 
         this.purchaseID = findViewById(R.id.tvPurchaseId);
         this.purchaseID.setText(this.curOrderId);
@@ -84,6 +92,9 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
 
         this.goToHome = findViewById(R.id.btnGoToHome);
         this.goToHome.setOnClickListener(this);
+
+        barcodeImage = findViewById(R.id.ivPurchaseSummaryBarcode);
+        generateQR();
     }
 
     @Override
@@ -124,5 +135,18 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
     private void goToHomeScreen() {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
+    }
+
+    private void generateQR() {
+        String eventId = curOrder.getEventId().trim();
+        MultiFormatWriter writer = new MultiFormatWriter();
+        try {
+            BitMatrix matrix = writer.encode(eventId, BarcodeFormat.QR_CODE, 400, 400);
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap bitmap = encoder.createBitmap(matrix);
+            barcodeImage.setImageBitmap(bitmap);
+        } catch (WriterException e){
+            Log.e("TAG", "generateQR: " + e.getLocalizedMessage());
+        }
     }
 }

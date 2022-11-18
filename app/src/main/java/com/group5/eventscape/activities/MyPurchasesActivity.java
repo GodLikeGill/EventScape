@@ -11,12 +11,9 @@ import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.group5.eventscape.R;
-import com.group5.eventscape.adapters.MyEventsAdapter;
 import com.group5.eventscape.adapters.MyPurchasesAdapter;
-import com.group5.eventscape.models.Event;
-import com.group5.eventscape.models.Orders;
-import com.group5.eventscape.viewmodels.EventViewModel;
-import com.group5.eventscape.viewmodels.OrdersViewModel;
+import com.group5.eventscape.models.Order;
+import com.group5.eventscape.viewmodels.OrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +23,8 @@ public class MyPurchasesActivity extends AppCompatActivity {
     ImageButton back;
     MyPurchasesAdapter adapter;
     RecyclerView recyclerView;
-    OrdersViewModel ordersViewModel;
-    List<Orders> myOrders = new ArrayList<>();
+    OrderViewModel ordersViewModel;
+    List<Order> myOrders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +35,9 @@ public class MyPurchasesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvMyPurchases);
 
         adapter = new MyPurchasesAdapter(myOrders);
-        ordersViewModel = OrdersViewModel.getInstance(getApplication());
+        ordersViewModel = OrderViewModel.getInstance(getApplication());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
@@ -55,9 +51,7 @@ public class MyPurchasesActivity extends AppCompatActivity {
         ordersViewModel.getOrdersOfCurUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         ordersViewModel.userOrders.observe(this, orders -> {
             myOrders.clear();
-            for (Orders ord : orders) {
-                myOrders.add(ord);
-            }
+            myOrders.addAll(orders);
             adapter.notifyDataSetChanged();
         });
     }
@@ -68,7 +62,6 @@ public class MyPurchasesActivity extends AppCompatActivity {
         super.onResume();
         this.getMyPurchases();
         Log.d("TAG", "onResume: " + myOrders);
-
     }
 
     @Override

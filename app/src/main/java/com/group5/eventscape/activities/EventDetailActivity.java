@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import android.app.AlertDialog;
@@ -16,34 +15,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.group5.eventscape.R;
 import com.group5.eventscape.models.Event;
 import com.group5.eventscape.models.Favorite;
-import com.group5.eventscape.models.Orders;
+import com.group5.eventscape.models.Order;
 import com.group5.eventscape.viewmodels.FavoriteViewModel;
-import com.group5.eventscape.viewmodels.OrdersViewModel;
+import com.group5.eventscape.viewmodels.OrderViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class EventDetailActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private String TAG = this.getClass().getCanonicalName();
@@ -81,8 +73,8 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     private Button plusButton;
     private EditText totalTickets;
 
-    private Orders order;
-    private OrdersViewModel ordersViewModel;
+    private Order order;
+    private OrderViewModel ordersViewModel;
 
     private Favorite favorite;
     private FavoriteViewModel favoriteViewModel;
@@ -174,8 +166,8 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
 
         // place order
-        this.order = new Orders();
-        this.ordersViewModel = OrdersViewModel.getInstance(this.getApplication());
+        this.order = new Order();
+        this.ordersViewModel = OrderViewModel.getInstance(this.getApplication());
 
         // add to favorite
         this.favorite = new Favorite();

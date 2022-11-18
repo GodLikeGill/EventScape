@@ -71,7 +71,6 @@
     <string name="save_profile">Save Profile</string>
     <string name="my_events">My Events</string>
 
-
     <!-- My Events Activity -->
     <string name="edit">Edit</string>
 
@@ -105,4 +104,7 @@
     <string name="cvv">CVV</string>
     <string name="expiry_date">Expiry Date</string>
     <string name="add_payment">Add Payment</string>
+
+    <!-- Purchase Detail Activity -->
+    <string name="purchase_detail">Purchase Detail</string>
 </resources>

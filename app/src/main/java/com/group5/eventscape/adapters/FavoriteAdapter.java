@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.group5.eventscape.databinding.CustomLayoutFavEventsBinding;
 import com.group5.eventscape.databinding.CustomRowLayoutBinding;
 import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.models.Event;
@@ -20,7 +21,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoritesViewHolder>{
     private final Context context;
     private ArrayList<Event> dataSourceArray;
-    CustomRowLayoutBinding binding;
+    CustomLayoutFavEventsBinding binding;
     private final OnRowClicked clickListener;
 
     public FavoriteAdapter(Context context, ArrayList<Event> dataSourceArray, OnRowClicked clickListener) {
@@ -32,7 +33,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @NonNull
     @Override
     public FavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FavoritesViewHolder(CustomRowLayoutBinding.inflate(LayoutInflater.from(context), parent, false));
+        return new FavoritesViewHolder(CustomLayoutFavEventsBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override
@@ -48,9 +49,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
 
     public class FavoritesViewHolder extends RecyclerView.ViewHolder {
-        CustomRowLayoutBinding itemBinding;
+        CustomLayoutFavEventsBinding itemBinding;
 
-        public FavoritesViewHolder(CustomRowLayoutBinding binding){
+        public FavoritesViewHolder(CustomLayoutFavEventsBinding binding){
             super(binding.getRoot());
             this.itemBinding = binding;
         }
@@ -60,12 +61,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             itemBinding.tvLocation.setText(item.getAddress());
 
             itemBinding.tvEventDateTime.setText(item.getDate() + "\n" + item.getTime());
-            Picasso.get().load(item.getImage())
-                    .centerCrop()
-                    .resize(120, 120)
-                    .transform(new CropCircleTransformation())
-                    .onlyScaleDown()
-                    .into(itemBinding.imgThumb);
+            Picasso.get().load(item.getImage()).into(itemBinding.imgThumb);
 
 
             itemBinding.getRoot().setOnClickListener(new View.OnClickListener() {

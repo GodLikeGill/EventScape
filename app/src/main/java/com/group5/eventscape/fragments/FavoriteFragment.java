@@ -56,6 +56,7 @@ public class FavoriteFragment extends Fragment implements OnRowClicked {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -76,15 +77,9 @@ public class FavoriteFragment extends Fragment implements OnRowClicked {
         eventViewModel = EventViewModel.getInstance(getActivity().getApplication());
 
 
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         getFavEventsId();
     }
+
 
     @Override
     public void onRowClicked(Event events) {
@@ -99,6 +94,8 @@ public class FavoriteFragment extends Fragment implements OnRowClicked {
         this.favoriteViewModel.getAllFav();
         this.favoriteViewModel.allFav.observe(getViewLifecycleOwner(), eventsId ->{
             eventsList.clear();
+
+
             for(Favorite eventId : eventsId){
                 getEventsById(eventId);
             }
@@ -109,6 +106,7 @@ public class FavoriteFragment extends Fragment implements OnRowClicked {
 
 
     private void getEventsById(Favorite eventId){
+        Log.e(TAG, "FavEvent: Clicked    " + eventId.getEventId() );
         this.eventViewModel.getEventById(eventId.getEventId());
         this.eventViewModel.eventById.observe(getViewLifecycleOwner(), event ->{
 

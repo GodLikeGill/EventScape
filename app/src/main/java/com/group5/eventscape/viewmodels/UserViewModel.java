@@ -7,13 +7,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.group5.eventscape.models.User;
-import com.group5.eventscape.repositories.UsersRepository;
+import com.group5.eventscape.repositories.UserRepository;
 
 import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
 
-    private final UsersRepository repository = new UsersRepository();
+    private final UserRepository repository = new UserRepository();
     private static UserViewModel instance;
 
     public MutableLiveData<List<User>> allUsers;
@@ -30,7 +30,7 @@ public class UserViewModel extends AndroidViewModel {
         return instance;
     }
 
-    public UsersRepository getUsersRepository() {
+    public UserRepository getUsersRepository() {
         return this.repository;
     }
 

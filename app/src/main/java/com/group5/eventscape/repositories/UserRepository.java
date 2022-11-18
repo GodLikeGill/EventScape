@@ -14,19 +14,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UsersRepository {
+public class UserRepository {
 
     private final FirebaseFirestore db;
     private final String COLLECTION_USERS = "Users";
     private final String FIELD_FULL_NAME = "fullName";
     private final String FIELD_EMAIL = "email";
     private final String FIELD_ID = "id";
+    private final String FIELD_BALANCE = "balance";
     private final String FIELD_IMAGE = "image";
 
     public MutableLiveData<User> currentUser = new MutableLiveData<>();
     public MutableLiveData<List<User>> allUsers = new MutableLiveData<>();
 
-    public UsersRepository() {
+    public UserRepository() {
         db = FirebaseFirestore.getInstance();
     }
 
@@ -68,12 +69,13 @@ public class UsersRepository {
 
     public void addUser(User user) {
         try {
-            Map<String, Object> data = new HashMap<>();
-            data.put(FIELD_FULL_NAME, user.getFullName());
-            data.put(FIELD_EMAIL, user.getEmail());
-            data.put(FIELD_ID, user.getId());
-            data.put(FIELD_IMAGE, user.getImage());
-            db.collection(COLLECTION_USERS).document(user.getId()).set(data).addOnSuccessListener(documentReference -> {
+            Map<String, Object> newUser = new HashMap<>();
+            newUser.put(FIELD_FULL_NAME, user.getFullName());
+            newUser.put(FIELD_EMAIL, user.getEmail());
+            newUser.put(FIELD_ID, user.getId());
+            newUser.put(FIELD_IMAGE, user.getImage());
+            newUser.put(FIELD_BALANCE, 0.00);
+            db.collection(COLLECTION_USERS).document(user.getId()).set(newUser).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "addUser: User created successfully");
             }).addOnFailureListener(e -> {
                 Log.e("TAG", "onFailure: Error while creating user." + e.getLocalizedMessage());
@@ -85,11 +87,12 @@ public class UsersRepository {
 
     public void updateUser(User user) {
         try {
-            Map<String, Object> newUser = new HashMap<>();
-            newUser.put(FIELD_FULL_NAME, user.getFullName());
-            newUser.put(FIELD_EMAIL, user.getEmail());
-            newUser.put(FIELD_IMAGE, user.getImage());
-            db.collection(COLLECTION_USERS).document(user.getId()).update(newUser).addOnSuccessListener(unused -> {
+            Map<String, Object> updatedUser = new HashMap<>();
+            updatedUser.put(FIELD_FULL_NAME, user.getFullName());
+            updatedUser.put(FIELD_EMAIL, user.getEmail());
+            updatedUser.put(FIELD_IMAGE, user.getImage());
+            updatedUser.put(FIELD_BALANCE, user.getBalance());
+            db.collection(COLLECTION_USERS).document(user.getId()).update(updatedUser).addOnSuccessListener(unused -> {
                 Log.d("TAG", "updateUser: User updated successfully");
             }).addOnFailureListener(e -> {
                 Log.e("TAG", "updateUser: " + e.getLocalizedMessage());

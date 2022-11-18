@@ -45,8 +45,6 @@ public class FavoriteRepository {
         db = FirebaseFirestore.getInstance();
     }
 
-
-
     public void addToFavorite(Favorite fav) {
         try {
             Map<String, Object> data = new HashMap<>();
@@ -65,7 +63,7 @@ public class FavoriteRepository {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("TAG", "onFailure: Error while adding to favorite" + e.getLocalizedMessage() );
+                            Log.e("TAG", "onFailure: Error while adding to favorite" + e.getLocalizedMessage());
                         }
                     });
         } catch (Exception e) {
@@ -171,7 +169,7 @@ public class FavoriteRepository {
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    Log.e("TAG", "onFailure: Error while adding to favorite" + e.getLocalizedMessage() );
+                                                    Log.e("TAG", "onFailure: Error while adding to favorite" + e.getLocalizedMessage());
                                                 }
                                             });
                                 } catch (Exception e) {

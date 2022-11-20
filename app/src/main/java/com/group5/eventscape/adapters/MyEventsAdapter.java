@@ -4,43 +4,48 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.pm.ShortcutXmlParser;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.group5.eventscape.BuildConfig;
 import com.group5.eventscape.R;
+import com.group5.eventscape.databinding.CustomLayoutFavEventsBinding;
+import com.group5.eventscape.databinding.CustomRowLayoutMyEventsBinding;
+import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.models.Event;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.ViewHolder> {
+public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.MyEventsViewHolder> {
 
-    private Context context;
-    private final List<Event> events;
+    private final ArrayList<Event> events;
+    CustomRowLayoutMyEventsBinding binding;
+    private final OnRowClicked clickListener;
 
-    public MyEventsAdapter(List<Event> events) {
+    public MyEventsAdapter( ArrayList<Event> events, OnRowClicked clickListener) {
         this.events = events;
+        this.clickListener = clickListener;
     }
 
     @NonNull
     @Override
-    public MyEventsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_row_layout_my_events, parent, false);
-        return new ViewHolder(view);
+    public MyEventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MyEventsAdapter.MyEventsViewHolder(CustomRowLayoutMyEventsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(events.get(position).getTitle());
-        holder.location.setText(events.get(position).getAddress());
-        holder.date.setText(events.get(position).getDate());
-        holder.price.setText("Price: $" + events.get(position).getPrice());
-        Picasso.get().load(events.get(position).getImage()).into(holder.image);
+    public void onBindViewHolder(@NonNull MyEventsViewHolder holder, int position) {
+        Event item = events.get(position);
+        holder.bind( item, clickListener);
     }
 
     @Override
@@ -48,23 +53,30 @@ public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.ViewHo
         return events.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class MyEventsViewHolder extends RecyclerView.ViewHolder {
+        CustomRowLayoutMyEventsBinding itemBinding;
 
-        ImageView image;
-        TextView title;
-        TextView location;
-        TextView date;
-        TextView price;
+        public MyEventsViewHolder(CustomRowLayoutMyEventsBinding binding){
+            super(binding.getRoot());
+            this.itemBinding = binding;
+        }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public void bind( Event item, OnRowClicked clickListener) {
 
-            context = itemView.getContext();
-            image = itemView.findViewById(R.id.circleMyEventsPicture);
-            title = itemView.findViewById(R.id.tvMyEventsTitle);
-            location = itemView.findViewById(R.id.tvMyEventsLocation);
-            date = itemView.findViewById(R.id.tvMyEventsDateTime);
-            price = itemView.findViewById(R.id.tvMyEventsPrice);
+            itemBinding.tvMyEventsTitle.setText(item.getTitle());
+            itemBinding.tvMyEventsLocation.setText(item.getAddress());
+            itemBinding.tvMyEventsDateTime.setText(item.getDate());
+            itemBinding.tvMyEventsPrice.setText("Price: $" + item.getPrice());
+
+            Picasso.get().load(item.getImage()).into(itemBinding.circleMyEventsPicture);
+
+
+            itemBinding.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onRowClicked(item);
+                }
+            });
         }
     }
 }

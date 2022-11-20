@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -12,19 +13,21 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.group5.eventscape.R;
 import com.group5.eventscape.adapters.MyEventsAdapter;
+import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.models.Event;
 import com.group5.eventscape.viewmodels.EventViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyEventsActivity extends AppCompatActivity {
+public class MyEventsActivity extends AppCompatActivity implements OnRowClicked {
 
     ImageButton back;
     MyEventsAdapter adapter;
     RecyclerView recyclerView;
     EventViewModel eventViewModel;
-    List<Event> myEvents = new ArrayList<>();
+    ArrayList<Event> myEvents = new ArrayList<Event>();
+    private String TAG = this.getClass().getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class MyEventsActivity extends AppCompatActivity {
         back = findViewById(R.id.ibBackMyEvents);
         recyclerView = findViewById(R.id.rvMyEvents);
 
-        adapter = new MyEventsAdapter(myEvents);
+        adapter = new MyEventsAdapter( this.myEvents, this::onRowClicked);
         eventViewModel = EventViewModel.getInstance(getApplication());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -43,6 +46,15 @@ public class MyEventsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         back.setOnClickListener(v -> finish());
+    }
+
+    @Override
+    public void onRowClicked(Event events) {
+        Log.e(TAG, "Edit Event : Clicked" + events.getId() );
+        Intent intent = new Intent(this, EditEventActivity.class);
+
+        intent.putExtra("editEvent", events);
+        startActivity(intent);
     }
 
     @Override

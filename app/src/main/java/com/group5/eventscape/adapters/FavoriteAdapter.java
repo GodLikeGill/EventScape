@@ -60,7 +60,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             itemBinding.tvEventTitle.setText(item.getTitle());
             itemBinding.tvLocation.setText(item.getAddress());
 
-            itemBinding.tvEventDateTime.setText(item.getDate() + "\n" + item.getTime());
+            itemBinding.tvEventDateTime.setText(item.getDate() + "    |     " + item.getTime() + "     |");
             Picasso.get().load(item.getImage()).into(itemBinding.imgThumb);
 
 

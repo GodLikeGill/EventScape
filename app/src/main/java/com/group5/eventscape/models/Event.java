@@ -23,13 +23,15 @@ public class Event implements Parcelable{
     private String time;
     private String price;
     private String image;
+    private String nooftickets;
 
     public Event() {
     }
 
-    public Event(String id, String user, String userName, String phone, String title, String category, String desc, String longitude, String latitude, String address, String city, String province, String postCode, String date, String date2, String time, String price, String image) {
+    public Event(String id, String noOfTickets, String user, String userName, String phone, String title, String category, String desc, String longitude, String latitude, String address, String city, String province, String postCode, String date, String date2, String time, String price, String image) {
         this.id = id;
         this.user = user;
+        this.nooftickets = noOfTickets;
         this.userName = userName;
         this.phone = phone;
         this.title = title;
@@ -52,6 +54,7 @@ public class Event implements Parcelable{
         id = in.readString();
         user = in.readString();
         userName = in.readString();
+        nooftickets = in.readString();
         phone = in.readString();
         title = in.readString();
         category = in.readString();
@@ -111,6 +114,15 @@ public class Event implements Parcelable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+
+    public String getNoOfTickets() {
+        return nooftickets;
+    }
+
+    public void setNoOfTickets(String noOfTickets) {
+        this.nooftickets = noOfTickets;
     }
 
     public String getTitle() {
@@ -235,6 +247,7 @@ public class Event implements Parcelable{
         dest.writeString(id);
         dest.writeString(user);
         dest.writeString(userName);
+        dest.writeString(nooftickets);
         dest.writeString(phone);
         dest.writeString(title);
         dest.writeString(category);

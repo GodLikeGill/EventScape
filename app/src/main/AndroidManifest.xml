@@ -14,7 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventScape.Dark">
         <activity
-            android:name="com.group5.eventscape.activities.PurchaseDetailActivity"
+            android:name=".activities.EditEventActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.PurchaseDetailActivity"
             android:exported="false" />
 
         <meta-data
@@ -22,7 +29,7 @@
             android:value="AIzaSyDhbKEyhFGHvQK2853TXzbWZ5f_IKksBB8" />
 
         <activity
-            android:name="com.group5.eventscape.activities.PaymentsActivity"
+            android:name=".activities.PaymentsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SettingsActivity"

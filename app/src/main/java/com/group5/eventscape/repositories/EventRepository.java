@@ -21,6 +21,7 @@ public class EventRepository {
     private final String FIELD_ID = "id";
     private final String FIELD_USER = "user";
     private final String FIELD_TITLE = "title";
+    private final String FIELD_NO_OF_TICKETS = "NoOfTickets";
     private final String FIELD_CATEGORY = "category";
     private final String FIELD_DESC = "desc";
     private final String FIELD_ADDRESS = "address";
@@ -89,6 +90,7 @@ public class EventRepository {
             data.put(FIELD_TITLE, event.getTitle());
             data.put(FIELD_CATEGORY, event.getCategory());
             data.put(FIELD_DESC, event.getDesc());
+            data.put(FIELD_NO_OF_TICKETS, event.getNoOfTickets());
             data.put(FIELD_ADDRESS, event.getAddress());
             data.put(FIELD_CITY, event.getCity());
             data.put(FIELD_LONGITUDE, event.getLongitude());
@@ -102,6 +104,36 @@ public class EventRepository {
             data.put(FIELD_IMAGE, event.getImage());
             db.collection(COLLECTION_EVENTS).document(event.getId()).set(data).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "addListing: Listing created successfully");
+            }).addOnFailureListener(e -> {
+                Log.e("TAG", "onFailure: Error while creating document " + e.getLocalizedMessage());
+            });
+        } catch (Exception e) {
+            Log.e("TAG", "addListing: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void editEvent(Event event) {
+        try {
+            Map<String, Object> data2 = new HashMap<>();
+            data2.put(FIELD_ID, event.getId());
+            data2.put(FIELD_USER, event.getUser());
+            data2.put(FIELD_TITLE, event.getTitle());
+            data2.put(FIELD_CATEGORY, event.getCategory());
+            data2.put(FIELD_DESC, event.getDesc());
+            data2.put(FIELD_NO_OF_TICKETS, event.getNoOfTickets());
+            data2.put(FIELD_ADDRESS, event.getAddress());
+            data2.put(FIELD_CITY, event.getCity());
+            data2.put(FIELD_LONGITUDE, event.getLongitude());
+            data2.put(FIELD_LATITUDE, event.getLatitude());
+            data2.put(FIELD_PROVINCE, event.getProvince());
+            data2.put(FIELD_POSTCODE, event.getPostCode());
+            data2.put(FIELD_DATE, event.getDate());
+            data2.put(FIELD_DATE2, event.getDate2());
+            data2.put(FIELD_TIME, event.getTime());
+            data2.put(FIELD_PRICE, event.getPrice());
+            data2.put(FIELD_IMAGE, event.getImage());
+            db.collection(COLLECTION_EVENTS).document(event.getId()).update(data2).addOnSuccessListener(documentReference -> {
+                Log.d("TAG", "EditListing: Listing created successfully");
             }).addOnFailureListener(e -> {
                 Log.e("TAG", "onFailure: Error while creating document " + e.getLocalizedMessage());
             });

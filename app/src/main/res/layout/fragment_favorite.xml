@@ -26,6 +26,6 @@
         android:id="@+id/rvFavoriteEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="5dp"
         tools:listitem="@layout/custom_layout_fav_events" />
 </LinearLayout>

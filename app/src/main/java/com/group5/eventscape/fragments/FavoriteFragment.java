@@ -70,7 +70,7 @@ public class FavoriteFragment extends Fragment implements OnRowClicked {
 
         // configure the recyclerview to use the adapter
         binding.rvFavoriteEvents.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.rvFavoriteEvents.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+      //  binding.rvFavoriteEvents.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvFavoriteEvents.setAdapter(this.adapter);
 
         favoriteViewModel = FavoriteViewModel.getInstance(getActivity().getApplication());

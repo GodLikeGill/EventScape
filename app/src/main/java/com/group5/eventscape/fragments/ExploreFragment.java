@@ -1,11 +1,17 @@
 package com.group5.eventscape.fragments;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -23,6 +29,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.group5.eventscape.R;
@@ -172,9 +180,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
                 }else{
                     for(Event event : events){
                         if(event.getLatitude() != null){
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(event.getLatitude()) , Float.parseFloat(event.getLongitude()))).title(event.getTitle()));
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(event.getLatitude()) , Float.parseFloat(event.getLongitude()))).title("EventScape Event: " + event.getTitle())).setIcon(BitmapFromVector(getContext(), R.drawable.ic_map_marker_48));
                         }
-                        Log.e(TAG, "onChanged: event : " + event.getTitle() );
+                        //Log.e(TAG, "onChanged: event : " + event.getTitle() );
                     }
                 }
             }
@@ -226,5 +234,27 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
         System.out.println("onStop");
         this.getAllEvents(getView());
         //this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
+    }
+
+    private BitmapDescriptor BitmapFromVector(Context context, int vectorResId) {
+        // below line is use to generate a drawable.
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+
+        // below line is use to set bounds to our vector drawable.
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+
+        // below line is use to create a bitmap for our
+        // drawable which we have added.
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        // below line is use to add bitmap in our canvas.
+        Canvas canvas = new Canvas(bitmap);
+
+        // below line is use to draw our
+        // vector drawable in canvas.
+        vectorDrawable.draw(canvas);
+
+        // after generating our bitmap we are returning our bitmap.
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }

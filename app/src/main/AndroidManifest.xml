@@ -26,7 +26,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDhbKEyhFGHvQK2853TXzbWZ5f_IKksBB8" />
+            android:value="AIzaSyACcFGO3cJ-KSrtPJ01Wwr6tXnPM2MrMx8" />
+<!--            android:value="AIzaSyDhbKEyhFGHvQK2853TXzbWZ5f_IKksBB8" />-->
 
         <activity
             android:name=".activities.PaymentsActivity"

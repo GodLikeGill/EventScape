@@ -27,9 +27,15 @@ import com.group5.eventscape.adapters.EventsAdapter;
 import com.group5.eventscape.databinding.FragmentHomeBinding;
 import com.group5.eventscape.helpers.LocationHelper;
 import com.group5.eventscape.models.Event;
+import com.group5.eventscape.models.Order;
 import com.group5.eventscape.viewmodels.EventViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements OnRowClicked {
@@ -153,7 +159,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         System.out.println("onPause");
         this.locationHelper.stopLocationUpdates(getView().getContext(), this.locationCallback);
         this.getAllEvents(getView());
-        //this.adapter.notifyDataSetChanged();
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -162,7 +168,7 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         System.out.println("onResume");
         this.locationHelper.getLocationUpdates(getView().getContext(), this.locationCallback);
         this.getAllEvents(getView());
-        //this.adapter.notifyDataSetChanged();
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -182,12 +188,24 @@ public class HomeFragment extends Fragment implements OnRowClicked {
                 if (events.isEmpty()){
                     Log.e(TAG, "onChanged: No documents received");
                 }else{
-                    for(Event event : events){
-                        Log.e(TAG, "onChanged: event : " + events.toString() );
-                    }
+//                    for(Event event : events){
+//                        Log.e(TAG, "onChanged: event : " + events.toString() );
+//                    }
 
                     eventsList.clear();
-                    eventsList.addAll(events);
+
+                    //filterEventByDate(events);
+
+                    List<Event> sortedList = filterEventByDate(events);
+                    Comparator<Event> eventDateSorter
+                            = (o1, o2) -> o1.getDate().compareTo(o2.getDate());
+
+                    Collections.sort(sortedList, eventDateSorter);
+                    //Collections.reverse(sortedList);
+                    //myOrders.addAll(sortedList);
+
+
+                    eventsList.addAll(sortedList);
                     initiateLocationListener(view);
                     adapter.notifyDataSetChanged();
                 }
@@ -218,5 +236,30 @@ public class HomeFragment extends Fragment implements OnRowClicked {
         };
 
         this.locationHelper.getLocationUpdates(view.getContext(), locationCallback);
+    }
+
+    private List<Event> filterEventByDate(List<Event> events){
+        ArrayList<Event> filteredEventList = new ArrayList<Event>();
+        Date date = new Date();
+        long curDateMilli = date.getTime();
+
+        filteredEventList.clear();
+
+        for(Event event : events){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date eDate = null;
+            try {
+                eDate = sdf.parse(event.getDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long eDateMillis = eDate.getTime();
+            //Log.e(TAG, "filterEventByDate: " + eDateMillis );
+            if(eDateMillis > curDateMilli){
+                filteredEventList.add(event);
+            }
+        }
+
+        return filteredEventList;
     }
 }

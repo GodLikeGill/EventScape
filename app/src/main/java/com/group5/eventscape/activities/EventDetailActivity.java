@@ -32,6 +32,7 @@ import com.group5.eventscape.viewmodels.FavoriteViewModel;
 import com.group5.eventscape.viewmodels.OrderViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -125,11 +126,20 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
         this.eventDate = findViewById(R.id.eventDate);
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateInString = this.curEvent.getDate();
+        String fromDateInString = this.curEvent.getDate();
+        String toDateInString = "";
+        if(this.curEvent.getDate2() != null){
+            toDateInString = this.curEvent.getDate2();
+        }
+
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("EEE, MMM dd");
         try {
-            Date date = inputDateFormat.parse(dateInString);
-            this.eventDate.setText(outputDateFormat.format(date));
+            Date fromDate = inputDateFormat.parse(fromDateInString);
+            if(!toDateInString.isEmpty()){
+                toDateInString = " to " + outputDateFormat.format(inputDateFormat.parse(toDateInString));
+
+            }
+            this.eventDate.setText(outputDateFormat.format(fromDate) + toDateInString);
         } catch (ParseException e) {
             Log.e(TAG, "Date Error");
             e.printStackTrace();
@@ -148,7 +158,7 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         this.eventPrice.setText("CA $" + this.curEvent.getPrice());
 
         this.eventDescription = findViewById(R.id.eventDescription);
-        this.eventDescription.setText(this.curEvent.getDesc());
+        this.eventDescription.setText((!this.curEvent.getCategory().isEmpty() ? "Category: " + this.curEvent.getCategory() + "\n\n" : "" ) + this.curEvent.getDesc());
 
         this.purchaseButton = findViewById(R.id.btnBuyNow);
         this.purchaseButton.setText("PURCHASE FOR CA $" + this.purchaseTotal);
@@ -181,14 +191,15 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
             this.isFavoriteEvent = true;
         });
 
-        this.dateToMill();
+//        this.dateToMill();
 
         this.checkFavorite();
 
     }
 
+    /*
     private void dateToMill() {
-        String myDate = "01/02/2023";
+        String myDate = "25/11/2024";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date date = null;
         try {
@@ -200,6 +211,8 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
 
         Log.e(TAG, "checkDate: " + myDate + " in milliseconds: " + millis);
 
+
+
         this.millToDate(millis);
     }
 
@@ -207,7 +220,10 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = formatter.format(new Date(millis));
         Log.e(TAG, "millToDate: " + millis + " in date: " + dateString);
+
+
     }
+    */
 
 
     @Override

@@ -16,6 +16,8 @@ import com.group5.eventscape.models.Order;
 import com.group5.eventscape.viewmodels.OrderViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MyPurchasesActivity extends AppCompatActivity {
@@ -51,7 +53,18 @@ public class MyPurchasesActivity extends AppCompatActivity {
         ordersViewModel.getOrdersOfCurUser(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         ordersViewModel.userOrders.observe(this, orders -> {
             myOrders.clear();
-            myOrders.addAll(orders);
+            // myOrders.addAll(orders);
+
+            //sorting my purchase start
+            List<Order> sortedList = orders;
+            Comparator<Order> eventDateSorter
+                    = (o1, o2) -> o1.getOrderDateTimeStamp().compareTo(o2.getOrderDateTimeStamp());
+
+            Collections.sort(sortedList, eventDateSorter);
+            Collections.reverse(sortedList);
+            myOrders.addAll(sortedList);
+            //sorting my purchase end
+
             adapter.notifyDataSetChanged();
         });
     }

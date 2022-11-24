@@ -5,7 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.group5.eventscape.models.Order;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class OrderRepository {
     private final String FIELD_TICKET_PRICE = "ticketPrice";
     private final String FIELD_TOTAL_ORDER_PRICE = "totalOrderPrice";
     private final String FIELD_ORDER_DATE = "orderDate";
+    private final String FIELD_ORDER_DATE_TIMESTAMP = "orderDateTimeStamp";
 
     public MutableLiveData<List<Order>> allOrders = new MutableLiveData<>();
     public MutableLiveData<List<Order>> userOrders = new MutableLiveData<>();
@@ -66,7 +69,7 @@ public class OrderRepository {
             Log.e("TAG", "getOrdersOfCurUser: try" );
             db.collection(COLLECTION_ORDERS)
                     .whereEqualTo("userEmail", userEmail)
-                    //.orderBy("orderDate", Query.Direction.DESCENDING)
+                    //.orderBy("orderDateTimeStamp", Query.Direction.DESCENDING)
                     //.orderBy("eventTitle", Query.Direction.DESCENDING)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -107,6 +110,7 @@ public class OrderRepository {
             data.put(FIELD_TICKET_PRICE, order.getTicketPrice());
             data.put(FIELD_TOTAL_ORDER_PRICE, order.getTotalOrderPrice());
             data.put(FIELD_ORDER_DATE, order.getOrderDate());
+            data.put(FIELD_ORDER_DATE_TIMESTAMP, FieldValue.serverTimestamp());
 
             db.collection(COLLECTION_ORDERS).add(data).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "addOrder: Order created successfully with order id: " + documentReference.getId());

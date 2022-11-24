@@ -134,7 +134,12 @@ public class PurchaseSummaryActivity extends AppCompatActivity implements View.O
 
     private void goToHomeScreen() {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
+//        finish();
+
+//        Intent myIntent = new Intent(this, MainActivity.class);
+//        startActivity(myIntent);
+
+//        finish();
     }
 
     private void generateQR() {

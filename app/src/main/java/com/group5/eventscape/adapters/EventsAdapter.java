@@ -62,8 +62,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         public void bind(Context context, Event item, OnRowClicked clickListener) {
             itemBinding.tvEventTitle.setText(item.getTitle());
             itemBinding.tvLocation.setText(item.getAddress());
+            String toDate = "";
+            if(item.getDate2() != null){
+                if(!item.getDate2().isEmpty()){
+                    toDate = " to " + item.getDate2();
+                }
+            }
 
-            itemBinding.tvEventDateTime.setText(item.getDate() + "\n" + item.getTime());
+            itemBinding.tvEventDateTime.setText(item.getDate() + toDate + "\n" + item.getTime());
             Picasso.get().load(item.getImage())
                     .centerCrop()
                     .resize(120, 120)
@@ -71,8 +77,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                     .onlyScaleDown()
                     .into(itemBinding.imgThumb);
 
-            //itemBinding.tvDistance.setText(String.valueOf( String.format("%.1f",item.getDistance()) + " km" ));
-            //itemBinding.tvDistance.setText("10.00 km");
+            if(!item.getCategory().isEmpty()){
+                itemBinding.tvDistance.setText(item.getCategory());
+            }
 
             itemBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

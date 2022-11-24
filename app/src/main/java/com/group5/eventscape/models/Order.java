@@ -3,6 +3,10 @@ package com.group5.eventscape.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Order implements Parcelable {
     private String id;
     private String eventId;
@@ -17,6 +21,11 @@ public class Order implements Parcelable {
     private String ticketPrice;
     private String totalOrderPrice;
     private String orderDate;
+
+
+
+    @ServerTimestamp
+    private Date orderDateTimeStamp;
 
     public Order(){
     }
@@ -159,6 +168,15 @@ public class Order implements Parcelable {
 
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
+    }
+
+
+    public Date getOrderDateTimeStamp() {
+        return orderDateTimeStamp;
+    }
+
+    public void setOrderDateTimeStamp(Date orderDateTimeStamp) {
+        this.orderDateTimeStamp = orderDateTimeStamp;
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

@@ -46,8 +46,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEvents"
         android:layout_width="match_parent"
-        android:layout_height="525dp"
-        android:layout_margin="8dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="75dp"
 
 
         app:layout_constraintBottom_toBottomOf="parent"

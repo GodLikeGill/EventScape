@@ -67,4 +67,7 @@ dependencies {
 
     // barcade generator
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+    // google adMob
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
 }

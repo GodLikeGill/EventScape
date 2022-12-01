@@ -106,6 +106,18 @@
                 android:textSize="@dimen/et_textSize" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_goneMarginBottom="20dp"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            app:layout_constraintBottom_toTopOf="@+id/btnSaveProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+
         <Button
             android:id="@+id/btnSaveProfile"
             android:layout_width="0dp"

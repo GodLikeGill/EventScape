@@ -74,7 +74,7 @@ public class UserRepository {
             newUser.put(FIELD_EMAIL, user.getEmail());
             newUser.put(FIELD_ID, user.getId());
             newUser.put(FIELD_IMAGE, user.getImage());
-            newUser.put(FIELD_BALANCE, 0.00);
+            newUser.put(FIELD_BALANCE, "0.00");
             db.collection(COLLECTION_USERS).document(user.getId()).set(newUser).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "addUser: User created successfully");
             }).addOnFailureListener(e -> {

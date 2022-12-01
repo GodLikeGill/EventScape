@@ -94,9 +94,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
 
 
 
-        if (locationHelper.locationPermissionGranted){
-            this.setLocation(view);
-        }
+//        if (locationHelper.locationPermissionGranted){
+//            this.setLocation(view);
+//        }
 
 
 
@@ -123,23 +123,28 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void setLocation(View view) {
-        this.locationHelper.getLastLocation(view.getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
-            @Override
-            public void onChanged(Location location) {
-                if (location != null){
-                    lastLocation = location;
-                    currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                    Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
-                    if (obtainedAddress != null){
-                        binding.etLocation.setText(obtainedAddress.getAddressLine(0));
+        if(this.locationHelper.getLastLocation(view.getContext()) != null){
+            this.locationHelper.getLastLocation(view.getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
+                @Override
+                public void onChanged(Location location) {
+                    if (location != null){
+                        lastLocation = location;
+                        currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                        Address obtainedAddress = locationHelper.performForwardGeocoding(view.getContext(), lastLocation);
+                        if (obtainedAddress != null){
+                            binding.etLocation.setText(obtainedAddress.getAddressLine(0));
+                        }
+                        Log.e(TAG, "onChanged: LastLocation NK" + location);
+                        if(currentLocation != null){
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
+                        }
+
+                    }else{
+                        Log.e(TAG, "onChanged: Last location not obtained");
                     }
-                    Log.e(TAG, "onChanged: LastLocation NK" + location);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
-                }else{
-                    Log.e(TAG, "onChanged: Last location not obtained");
                 }
-            }
-        });
+            });
+        }
     }
 
 
@@ -180,7 +185,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
                 }else{
                     for(Event event : events){
                         if(event.getLatitude() != null){
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(event.getLatitude()) , Float.parseFloat(event.getLongitude()))).title("EventScape Event: " + event.getTitle())).setIcon(BitmapFromVector(getContext(), R.drawable.ic_map_marker_48));
+                            if(mMap!=null){
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(event.getLatitude()) , Float.parseFloat(event.getLongitude()))).title("EventScape Event: " + event.getTitle())).setIcon(BitmapFromVector(getContext(), R.drawable.ic_map_marker_48));
+                            }
                         }
                         //Log.e(TAG, "onChanged: event : " + event.getTitle() );
                     }
@@ -192,13 +199,9 @@ public class ExploreFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(43.6512977, -79.3702414);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Current Location"));
-//
-//        LatLng sydney2 = new LatLng(43.6762309, -79.4102862);
-//        mMap.addMarker(new MarkerOptions().position(sydney2).title("Current Location 2"));
+        if (locationHelper.locationPermissionGranted){
+            this.setLocation(getView());
+        }
 
         //this.getAllEvents(getView(), mMap);
         this.getAllEvents(getView());

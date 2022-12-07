@@ -21,7 +21,7 @@ public class EventRepository {
     private final String FIELD_ID = "id";
     private final String FIELD_USER = "user";
     private final String FIELD_TITLE = "title";
-    private final String FIELD_NO_OF_TICKETS = "NoOfTickets";
+
     private final String FIELD_CATEGORY = "category";
     private final String FIELD_DESC = "desc";
     private final String FIELD_ADDRESS = "address";
@@ -30,6 +30,7 @@ public class EventRepository {
     private final String FIELD_CITY = "city";
     private final String FIELD_PROVINCE = "province";
     private final String FIELD_POSTCODE = "postcode";
+    private final String FIELD_DATE_IN_MILLI = "startDateInMilli";
     private final String FIELD_DATE = "date";
     private final String FIELD_DATE2 = "date2";
     private final String FIELD_TIME = "time";
@@ -90,7 +91,7 @@ public class EventRepository {
             data.put(FIELD_TITLE, event.getTitle());
             data.put(FIELD_CATEGORY, event.getCategory());
             data.put(FIELD_DESC, event.getDesc());
-            data.put(FIELD_NO_OF_TICKETS, event.getNoOfTickets());
+
             data.put(FIELD_ADDRESS, event.getAddress());
             data.put(FIELD_CITY, event.getCity());
             data.put(FIELD_LONGITUDE, event.getLongitude());
@@ -102,6 +103,7 @@ public class EventRepository {
             data.put(FIELD_TIME, event.getTime());
             data.put(FIELD_PRICE, event.getPrice());
             data.put(FIELD_IMAGE, event.getImage());
+            data.put(FIELD_DATE_IN_MILLI, event.getStartDateInMilli());
             db.collection(COLLECTION_EVENTS).document(event.getId()).set(data).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "addListing: Listing created successfully");
             }).addOnFailureListener(e -> {
@@ -120,7 +122,7 @@ public class EventRepository {
             data2.put(FIELD_TITLE, event.getTitle());
             data2.put(FIELD_CATEGORY, event.getCategory());
             data2.put(FIELD_DESC, event.getDesc());
-            data2.put(FIELD_NO_OF_TICKETS, event.getNoOfTickets());
+
             data2.put(FIELD_ADDRESS, event.getAddress());
             data2.put(FIELD_CITY, event.getCity());
             data2.put(FIELD_LONGITUDE, event.getLongitude());
@@ -132,6 +134,7 @@ public class EventRepository {
             data2.put(FIELD_TIME, event.getTime());
             data2.put(FIELD_PRICE, event.getPrice());
             data2.put(FIELD_IMAGE, event.getImage());
+            data2.put(FIELD_DATE_IN_MILLI, event.getStartDateInMilli());
             db.collection(COLLECTION_EVENTS).document(event.getId()).update(data2).addOnSuccessListener(documentReference -> {
                 Log.d("TAG", "EditListing: Listing created successfully");
             }).addOnFailureListener(e -> {

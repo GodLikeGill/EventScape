@@ -92,7 +92,7 @@ public class EditEventActivity extends AppCompatActivity {
         EditText eventAddress = binding.etEventAddress;
         EditText eventCity = binding.etEventCity;
         EditText eventProvince = binding.etEventProvince;
-        EditText noOfTickets = binding.etNoOfTicket;
+
         EditText eventPostCode = binding.etEventPostCode;
         TextView eventDate = binding.datePicker;
         TextView eventDate2 = binding.datePicker2;
@@ -109,7 +109,7 @@ public class EditEventActivity extends AppCompatActivity {
         eventPostCode.setText(this.curEvent.getPostCode());
         eventDate.setText(this.curEvent.getDate());
         eventDate2.setText(this.curEvent.getDate2());
-        noOfTickets.setText(this.curEvent.getNoOfTickets());
+
         eventPrice.setText(this.curEvent.getPrice());
         autoCompleteTextView.setText(this.curEvent.getCategory());
         autoCompleteTextView.setAdapter(adapterItems);
@@ -191,7 +191,7 @@ public class EditEventActivity extends AppCompatActivity {
                     longitude = addressList.get(0).getLongitude();
                     latitude = addressList.get(0).getLatitude();
 
-                    if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || noOfTickets.getText().toString().isEmpty() || btnEventTime.getText().toString().isEmpty() || eventPostCode.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
+                    if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || btnEventTime.getText().toString().isEmpty() || eventPostCode.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
                         Toast.makeText(EditEventActivity.this, "All details should be Filled ", Toast.LENGTH_SHORT).show();
                     } else {
                         uploadImage();
@@ -200,7 +200,7 @@ public class EditEventActivity extends AppCompatActivity {
                         editEvent.setAddress(eventAddress.getText().toString());
                         editEvent.setCity(eventCity.getText().toString());
                         editEvent.setProvince(eventProvince.getText().toString());
-                        editEvent.setNoOfTickets(noOfTickets.getText().toString());
+
                         editEvent.setLongitude(String.valueOf(longitude));
                         editEvent.setLatitude(String.valueOf(latitude));
                         editEvent.setPostCode(eventPostCode.getText().toString());

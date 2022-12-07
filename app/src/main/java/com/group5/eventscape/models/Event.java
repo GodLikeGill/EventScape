@@ -24,11 +24,12 @@ public class Event implements Parcelable{
     private String price;
     private String image;
     private String nooftickets;
+    private long startDateInMilli;
 
     public Event() {
     }
 
-    public Event(String id, String noOfTickets, String user, String userName, String phone, String title, String category, String desc, String longitude, String latitude, String address, String city, String province, String postCode, String date, String date2, String time, String price, String image) {
+    public Event(String id, long startDateInMilli, String noOfTickets, String user, String userName, String phone, String title, String category, String desc, String longitude, String latitude, String address, String city, String province, String postCode, String date, String date2, String time, String price, String image) {
         this.id = id;
         this.user = user;
         this.nooftickets = noOfTickets;
@@ -48,6 +49,7 @@ public class Event implements Parcelable{
         this.time = time;
         this.price = price;
         this.image = image;
+        this.startDateInMilli = startDateInMilli;
     }
 
     protected Event(Parcel in) {
@@ -70,6 +72,7 @@ public class Event implements Parcelable{
         time = in.readString();
         price = in.readString();
         image = in.readString();
+        startDateInMilli = in.readLong();
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
@@ -116,6 +119,14 @@ public class Event implements Parcelable{
         this.phone = phone;
     }
 
+
+    public long getStartDateInMilli() {
+        return startDateInMilli;
+    }
+
+    public void setStartDateInMilli(long startDateInMilli) {
+        this.startDateInMilli = startDateInMilli;
+    }
 
     public String getNoOfTickets() {
         return nooftickets;
@@ -263,6 +274,7 @@ public class Event implements Parcelable{
         dest.writeString(time);
         dest.writeString(price);
         dest.writeString(image);
+        dest.writeLong(startDateInMilli);
     }
 }
 

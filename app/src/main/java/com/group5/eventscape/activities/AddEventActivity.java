@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -46,7 +47,10 @@ import com.group5.eventscape.viewmodels.EventViewModel;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -89,13 +93,14 @@ public class AddEventActivity extends AppCompatActivity {
         EditText eventAddress = binding.etEventAddress;
         EditText eventCity = binding.etEventCity;
         EditText eventProvince = binding.etEventProvince;
-        EditText noOfTickets = binding.etNoOfTicket;
+
         EditText eventPostCode = binding.etEventPostCode;
         TextView eventDate = binding.datePicker;
         TextView eventDate2 = binding.datePicker2;
         btnEventTime = binding.btnEventTime;
         EditText eventPrice = binding.etEventPrice;
         AppCompatButton btnAddEvent = binding.btnAddEvent;
+
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -124,6 +129,8 @@ public class AddEventActivity extends AppCompatActivity {
                 eventDate.setText(date);
             }
         };
+
+
 
         eventDate2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +179,7 @@ public class AddEventActivity extends AppCompatActivity {
                     longitude = addressList.get(0).getLongitude();
                     latitude = addressList.get(0).getLatitude();
 
-                    if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || noOfTickets.getText().toString().isEmpty() || btnEventTime.getText().toString().isEmpty() || eventPostCode.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
+                    if (eventTitle.getText().toString().isEmpty() || eventAddress.getText().toString().isEmpty() || eventDescription.getText().toString().isEmpty() || eventDate.getText().toString().isEmpty() || btnEventTime.getText().toString().isEmpty() || eventPostCode.getText().toString().isEmpty() || eventPrice.getText().toString().isEmpty()) {
                         Toast.makeText(AddEventActivity.this, "All details should be Filled ", Toast.LENGTH_SHORT).show();
                     } else {
                         uploadImage();
@@ -181,7 +188,7 @@ public class AddEventActivity extends AppCompatActivity {
                         newEvent.setAddress(eventAddress.getText().toString());
                         newEvent.setCity(eventCity.getText().toString());
                         newEvent.setProvince(eventProvince.getText().toString());
-                        newEvent.setNoOfTickets(noOfTickets.getText().toString());
+
                         newEvent.setLongitude(String.valueOf(longitude));
                         newEvent.setLatitude(String.valueOf(latitude));
                         newEvent.setPostCode(eventPostCode.getText().toString());
@@ -192,6 +199,16 @@ public class AddEventActivity extends AppCompatActivity {
                         newEvent.setTime(btnEventTime.getText().toString());
                         newEvent.setPrice(eventPrice.getText().toString());
                         newEvent.setId(UUID.randomUUID().toString());
+
+                        String Date1 = eventDate.getText().toString();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date date = sdf.parse(Date1);
+                            long startDateToMilli = date.getTime();
+                            newEvent.setStartDateInMilli(startDateToMilli);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         eventViewModel.addEvent(newEvent);
                         finish();
                     }

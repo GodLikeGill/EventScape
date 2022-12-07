@@ -4,7 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Coding/College/AndroidStudioProject/EventScape/app/src/main/res/drawable-v24/back_arrow_white.xml" value="0.325" />
-        <entry key="..\:/Coding/College/AndroidStudioProject/EventScape/app/src/main/res/drawable/camera.xml" value="0.273" />
         <entry key="..\:/Coding/College/AndroidStudioProject/EventScape/app/src/main/res/drawable/ic_search.xml" value="0.196" />
         <entry key="..\:/Coding/College/AndroidStudioProject/EventScape/app/src/main/res/drawable/logout.xml" value="0.1585" />
         <entry key="..\:/Coding/College/AndroidStudioProject/EventScape/app/src/main/res/drawable/rect.xml" value="0.236" />
@@ -59,6 +58,7 @@
         <entry key="app/src/main/res/layout/custom_row_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/custom_row_layout_my_purchases.xml" value="0.25" />
         <entry key="app/src/main/res/layout/custom_row_layout_purchase_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.1634963768115942" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.13728470111448834" />
       </map>

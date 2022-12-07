@@ -18,6 +18,7 @@ public class UserViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<User>> allUsers;
     public MutableLiveData<User> currentUser;
+    public MutableLiveData<User> userByEmail;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
@@ -44,8 +45,14 @@ public class UserViewModel extends AndroidViewModel {
         this.currentUser = this.repository.currentUser;
     }
 
+    public void getUserByEmail(String userEmail) {
+        this.repository.getUserByEmail(userEmail);
+        this.userByEmail = this.repository.userByEmail;
+    }
+
     public void addUser(User user) {
         this.repository.addUser(user);
     }
     public void updateUser(User user) { this.repository.updateUser(user); }
+    public void updateUserBalance(User user) { this.repository.updateUserBalance(user); }
 }

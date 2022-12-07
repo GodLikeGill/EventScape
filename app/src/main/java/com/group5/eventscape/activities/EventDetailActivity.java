@@ -28,8 +28,10 @@ import com.group5.eventscape.R;
 import com.group5.eventscape.models.Event;
 import com.group5.eventscape.models.Favorite;
 import com.group5.eventscape.models.Order;
+import com.group5.eventscape.models.User;
 import com.group5.eventscape.viewmodels.FavoriteViewModel;
 import com.group5.eventscape.viewmodels.OrderViewModel;
+import com.group5.eventscape.viewmodels.UserViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
@@ -81,6 +83,16 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     private FavoriteViewModel favoriteViewModel;
 
     private String generatedOrderId;
+
+    //user
+    UserViewModel userViewModel;
+    private User currentUser;
+    String currentUserEmail;
+    String currUserBalance;
+
+    private User eventOwnerUser;
+    String eventOwnerEmail;
+    String eventOwnerBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +158,7 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
         }
 
         this.eventTime = findViewById(R.id.eventTime);
-        this.eventTime.setText(this.curEvent.getTime());
+        this.eventTime.setText(convertTime(this.curEvent.getTime()));
 
         this.eventAddreess1 = findViewById(R.id.address1);
         this.eventAddreess1.setText(this.curEvent.getAddress());
@@ -191,10 +203,13 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
             this.isFavoriteEvent = true;
         });
 
+
 //        this.dateToMill();
 
         this.checkFavorite();
 
+        // user
+        userViewModel = UserViewModel.getInstance(getApplication());
     }
 
     /*
@@ -379,6 +394,25 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void placeOrder(){
+        Log.e(TAG, "placeOrder: " + currentUser.getEmail() );
+        Log.e(TAG, "placeOrder: " + eventOwnerUser.getEmail() );
+        if(!currentUser.getId().equals(eventOwnerUser.getId())){
+            Log.e(TAG, "placeOrder: inside condition" );
+            Log.e(TAG, "placeOrder user: " + this.currUserBalance );
+            Log.e(TAG, "placeOrder eventOwner: " + this.eventOwnerBalance );
+
+            Double updatedCurrentUserBalance = Double.parseDouble(this.currUserBalance) + Double.parseDouble(this.purchaseTotal);
+            Double updatedEventOwnerBalance = Double.parseDouble(this.eventOwnerBalance) - Double.parseDouble(this.purchaseTotal);
+
+            currentUser.setBalance(updatedCurrentUserBalance.toString());
+            userViewModel.updateUserBalance(currentUser);
+            eventOwnerUser.setBalance(updatedEventOwnerBalance.toString());
+            userViewModel.updateUserBalance(eventOwnerUser);
+
+            Log.e(TAG, "placeOrder user: " + updatedCurrentUserBalance );
+            Log.e(TAG, "placeOrder eventOwner: " + updatedEventOwnerBalance );
+        }
+
         Date currentTime = Calendar.getInstance().getTime();
         this.order.setEventId(curEvent.getId());
         this.order.setEventImageThumb(curEvent.getImage());
@@ -402,8 +436,50 @@ public class EventDetailActivity extends AppCompatActivity implements AdapterVie
                 intent.putExtra("curOrder", this.order);
                 startActivity(intent);
                 this.generatedOrderId = id;
-                Log.e(TAG, "placeOrder: Nirav " + this.generatedOrderId + " " + id);
+                Log.e(TAG, "placeOrder: " + this.generatedOrderId + " " + id);
             }
         });
+    }
+
+    public String convertTime(String time){
+        String str = "";
+        if(time != null){
+            if(time != ""){
+                String[] result = time.split(":");
+                if(result[0] != "" && result[1] != ""){
+                    Integer hour = Integer.parseInt(result[0]);
+                    Integer minute = Integer.parseInt(result[1]);
+                    str = ((hour > 12) ? hour % 12 : hour) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hour >= 12) ? "PM" : "AM");
+                }
+            }
+        }
+
+        return str;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //user Balance
+        userViewModel.getCurrentUser(FirebaseAuth.getInstance().getUid());
+        userViewModel.currentUser.observe(this, user -> {
+            this.currentUser = user;
+            this.currUserBalance = user.getBalance();
+            this.currentUserEmail = user.getEmail();
+            Log.e(TAG, "currUserBalance nkbalance: " + currUserBalance);
+            Log.e(TAG, "currUserBalance nkbalance: " + currentUserEmail);
+        });
+
+        userViewModel.getUserByEmail(curEvent.getUser());
+        userViewModel.userByEmail.observe(this, user -> {
+            this.eventOwnerUser = user;
+            this.eventOwnerBalance = user.getBalance();
+            this.eventOwnerEmail = user.getEmail();
+            Log.e(TAG, "eventOwnerBalance nkbalance: " + eventOwnerBalance);
+            Log.e(TAG, "eventOwnerBalance nkbalance: " + eventOwnerEmail);
+        });
+
+
     }
 }

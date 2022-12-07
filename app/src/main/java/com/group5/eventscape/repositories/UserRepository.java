@@ -1,5 +1,6 @@
 package com.group5.eventscape.repositories;
 
+import android.nfc.Tag;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.group5.eventscape.models.Order;
 import com.group5.eventscape.models.User;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserRepository {
+    private String TAG = this.getClass().getCanonicalName();
 
     private final FirebaseFirestore db;
     private final String COLLECTION_USERS = "Users";
@@ -26,6 +29,7 @@ public class UserRepository {
 
     public MutableLiveData<User> currentUser = new MutableLiveData<>();
     public MutableLiveData<List<User>> allUsers = new MutableLiveData<>();
+    public MutableLiveData<User> userByEmail = new MutableLiveData<>();
 
     public UserRepository() {
         db = FirebaseFirestore.getInstance();
@@ -67,6 +71,25 @@ public class UserRepository {
         }
     }
 
+    public void getUserByEmail(String userEmail) {
+        try {
+            db.collection(COLLECTION_USERS)
+                    .whereEqualTo("email", userEmail)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            Log.e(TAG, "getUserByEmail: No data retrieved." );
+                        } else {
+                            for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
+                                userByEmail.postValue(documentChange.getDocument().toObject(User.class));
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "getUserByEmail: " + e.getLocalizedMessage());
+        }
+    }
+
     public void addUser(User user) {
         try {
             Map<String, Object> newUser = new HashMap<>();
@@ -91,6 +114,21 @@ public class UserRepository {
             updatedUser.put(FIELD_FULL_NAME, user.getFullName());
             updatedUser.put(FIELD_EMAIL, user.getEmail());
             updatedUser.put(FIELD_IMAGE, user.getImage());
+            updatedUser.put(FIELD_BALANCE, user.getBalance());
+            db.collection(COLLECTION_USERS).document(user.getId()).update(updatedUser).addOnSuccessListener(unused -> {
+                Log.d("TAG", "updateUser: User updated successfully");
+            }).addOnFailureListener(e -> {
+                Log.e("TAG", "updateUser: " + e.getLocalizedMessage());
+            });
+        } catch (Exception e) {
+            Log.e("TAG", "updateUser: " + e.getLocalizedMessage());
+        }
+    }
+
+
+    public void updateUserBalance(User user) {
+        try {
+            Map<String, Object> updatedUser = new HashMap<>();
             updatedUser.put(FIELD_BALANCE, user.getBalance());
             db.collection(COLLECTION_USERS).document(user.getId()).update(updatedUser).addOnSuccessListener(unused -> {
                 Log.d("TAG", "updateUser: User updated successfully");

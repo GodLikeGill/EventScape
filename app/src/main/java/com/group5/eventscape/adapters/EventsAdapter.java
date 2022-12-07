@@ -1,6 +1,7 @@
 package com.group5.eventscape.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.group5.eventscape.interfaces.OnRowClicked;
 import com.group5.eventscape.databinding.CustomRowLayoutBinding;
 import com.group5.eventscape.models.Event;
+import com.group5.eventscape.viewmodels.EventViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                 }
             }
 
-            itemBinding.tvEventDateTime.setText(item.getDate() + toDate + "\n" + item.getTime());
+            itemBinding.tvEventDateTime.setText(item.getDate() + toDate + "\n" + convertTime(item.getTime()));
             Picasso.get().load(item.getImage())
                     .centerCrop()
                     .resize(120, 120)
@@ -88,5 +90,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
                 }
             });
         }
+    }
+
+    public String convertTime(String time){
+        String str = "";
+        if(time != null){
+            if(time != ""){
+                String[] result = time.split(":");
+                if(result[0] != "" && result[1] != ""){
+                    Integer hour = Integer.parseInt(result[0]);
+                    Integer minute = Integer.parseInt(result[1]);
+                    str = ((hour > 12) ? hour % 12 : hour) + ":" + (minute < 10 ? ("0" + minute) : minute) + " " + ((hour >= 12) ? "PM" : "AM");
+                }
+            }
+        }
+
+        return str;
     }
 }

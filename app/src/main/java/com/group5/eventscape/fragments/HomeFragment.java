@@ -198,7 +198,8 @@ public class HomeFragment extends Fragment implements OnRowClicked {
 
                     List<Event> sortedList = filterEventByDate(events);
                     Comparator<Event> eventDateSorter
-                            = (o1, o2) -> o1.getDate().compareTo(o2.getDate());
+                            = (o1, o2) -> Long.compare(o1.getStartDateInMilli(), o2.getStartDateInMilli());
+                            //= (o1, o2) -> o1.getStartDateInMilli().compareTo(o2.getStartDateInMilli());
 
                     Collections.sort(sortedList, eventDateSorter);
                     //Collections.reverse(sortedList);

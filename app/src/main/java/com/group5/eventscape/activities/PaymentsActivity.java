@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,14 +24,18 @@ import com.group5.eventscape.viewmodels.UserViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
+
 public class PaymentsActivity extends AppCompatActivity {
 
+    private static final int MY_SCAN_REQUEST_CODE = 1;
     TextView balance;
     boolean visaBool = false, amexBool = false, mcBool = false;
     EditText cvv, cardNumber, cardName, cardExpiry;
     Button addPayment;
     ImageButton back;
-    ImageView visa, amex, masterCard;
+    ImageView visa, amex, masterCard, camera;
     RecyclerView recyclerView;
     PaymentsAdapter adapter;
     UserViewModel userViewModel;
@@ -44,6 +50,7 @@ public class PaymentsActivity extends AppCompatActivity {
         cvv = findViewById(R.id.etCVV);
         visa = findViewById(R.id.ivVisa);
         amex = findViewById(R.id.ivAmex);
+        camera = findViewById(R.id.ivCamera);
         masterCard = findViewById(R.id.ivMasterCard);
         balance = findViewById(R.id.tvBalance);
         back = findViewById(R.id.ibBackPayments);
@@ -103,7 +110,32 @@ public class PaymentsActivity extends AppCompatActivity {
             amexBool = false;
         });
 
+        camera.setOnClickListener(this::onScanPress);
+
         back.setOnClickListener(v -> finish());
+    }
+
+    public void onScanPress(View v) {
+        Intent scanIntent = new Intent(this, CardIOActivity.class);
+        startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MY_SCAN_REQUEST_CODE) {
+            String cardNumberText;
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+
+                cardNumberText = scanResult.getRedactedCardNumber();
+            }
+            else {
+                cardNumberText = "Scan was canceled.";
+            }
+            cardNumber.setText(cardNumberText);
+        }
     }
 
     private String getCardType() {

@@ -45,7 +45,10 @@ import com.group5.eventscape.viewmodels.EventViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -109,7 +112,7 @@ public class EditEventActivity extends AppCompatActivity {
         eventPostCode.setText(this.curEvent.getPostCode());
         eventDate.setText(this.curEvent.getDate());
         eventDate2.setText(this.curEvent.getDate2());
-
+        btnEventTime.setText(this.curEvent.getTime());
         eventPrice.setText(this.curEvent.getPrice());
         autoCompleteTextView.setText(this.curEvent.getCategory());
         autoCompleteTextView.setAdapter(adapterItems);
@@ -211,6 +214,17 @@ public class EditEventActivity extends AppCompatActivity {
                         editEvent.setTime(btnEventTime.getText().toString());
                         editEvent.setPrice(eventPrice.getText().toString());
                         editEvent.setId(curEvent.getId());
+
+                        String Date1 = eventDate.getText().toString();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date date = sdf.parse(Date1);
+                            long startDateToMilli = date.getTime();
+                            editEvent.setStartDateInMilli(startDateToMilli);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                         eventViewModel.editEvent(editEvent);
                         finish();
                     }

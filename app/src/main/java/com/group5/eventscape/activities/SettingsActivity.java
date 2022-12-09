@@ -43,10 +43,10 @@ public class SettingsActivity extends AppCompatActivity {
                 .setMessage("EventScape FAQs to help you plan your next event. \n" +
                         "\n" +
                         "Can I use EventScape for free events? \n" +
-                        "There's no cost for organizers to use Eventbrite if you're not charging for tickets. There are no monthly charges, enrollment costs, or setup fees. If you're charging for ticket sales, our fees vary by package. Eventbrite is what you need to grow your community at your next free event.\n" +
+                        "There's no cost for organizers to use EventScape if you're not charging for tickets. There are no monthly charges, enrollment costs, or setup fees. If you're charging for ticket sales, our fees vary by package. EventScape is what you need to grow your community at your next free event.\n" +
                         "\n" +
                         "How do I get money from EventScape events?\n" +
-                        "To make sure you get paid for your ticket sales, it's crucial to enter your payout details. You can be paid by direct deposit, check (USD only), PayPal, or Authorize.Net. When using Eventbrite Payment Processing to collect payments, your payout will start processing 4-5 days after the event ends.\n" +
+                        "To make sure you get paid for your ticket sales, it's crucial to enter your payout details. You can be paid by direct deposit, check (USD only), PayPal, or Authorize.Net. When using EventScape Payment Processing to collect payments, your payout will start processing 4-5 days after the event ends.\n" +
                         "\n" +
                         "How much does it cost to use EventScape?\n" +
                         "You can sign up for free and avoid ticketing fees by passing them on to attendees. There are also paid solutions available.\n" +
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
                         "EventScape's premium package has custom pricing.\n" +
                         "\n" +
                         "How do I sell tickets on EventScape?\n" +
-                        "You can accept cash or credit card payments for your event with Eventbrite Organizer.\n" +
+                        "You can accept cash or credit card payments for your event with EventScape Organizer.\n" +
                         "\n" +
                         "It's a great way to keep track of on-site sales, and you can even collect contact information for your attendees. Follow these ticket-pricing strategies to stay competitive and maximize ticket sales. Consider tiered pricing, which can make your event marketable to a broader audience, or VIP experiences for event-goers looking for more.– Review our payment processing options here.")
                 .setPositiveButton("Back", (dialogInterface, i) -> {}).show());

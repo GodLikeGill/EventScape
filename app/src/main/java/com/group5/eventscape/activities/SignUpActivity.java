@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (!fullName.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty() ){
             if(password.equals(confirmPassword)){
                 if( binding.cbTermsAndCondition.isChecked()){
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnSuccessListener(task -> {
                         newUser.setFullName(fullName);
                         newUser.setId(FirebaseAuth.getInstance().getUid());
                         newUser.setEmail(email);

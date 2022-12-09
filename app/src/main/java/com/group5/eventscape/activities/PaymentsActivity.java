@@ -125,14 +125,14 @@ public class PaymentsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == MY_SCAN_REQUEST_CODE) {
-            String cardNumberText;
+            String cardNumberText = "";
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
 
-                cardNumberText = scanResult.getRedactedCardNumber();
+                cardNumberText = scanResult.getFormattedCardNumber();
             }
             else {
-                cardNumberText = "Scan was canceled.";
+                Toast.makeText(this, "Scan was Canceled!", Toast.LENGTH_SHORT).show();;
             }
             cardNumber.setText(cardNumberText);
         }
